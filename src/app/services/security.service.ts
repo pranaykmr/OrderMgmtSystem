@@ -13,7 +13,7 @@ export class SecurityService {
   constructor(private _httpClient: HttpClient) { }
 
   DoLogin(userId: string, pwd: string): Observable<string> {
-    return this._httpClient.get<string>(`${this.apiUrl}/login/GetLogonTheUser?username=`+userId+'&password='+pwd);
+    return this._httpClient.get<string>(`${this.apiUrl}/login/LogonTheUser?username=`+userId+'&password='+pwd);
   }
 
   ValidateUserToken(token: string): Observable<boolean> {
@@ -22,7 +22,7 @@ export class SecurityService {
 
   DoLogout(token: string): Observable<void> {
     this.userToken="";
-    return this._httpClient.put<void>(`${this.apiUrl}/login/PutLogoutUserSession`,token);
+    return this._httpClient.get<void>(`${this.apiUrl}/login/LogoutUserSession?token=`+token);
   }
 
   SetUserToken(token: string) {
