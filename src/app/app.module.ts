@@ -10,6 +10,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderdetailsComponent } from './orderdetails/orderdetails.component';
 import { AdminComponent } from './admin/admin.component';
+//import * as $ from 'jquery';
 
 @NgModule({
   declarations: [
@@ -24,8 +25,7 @@ import { AdminComponent } from './admin/admin.component';
     AppRoutingModule,
     HttpClientModule,
     NgxSpinnerModule,
-    FormsModule
-  ],
+    FormsModule],
   providers: [],
   bootstrap: [AppComponent]
 })

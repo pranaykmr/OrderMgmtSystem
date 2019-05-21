@@ -1,3 +1,129 @@
-<p>
-  admin works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Resources Taken By Others</h3>
+      </div>
+      <div class="panel-body em10Div">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Sl.No.</th>
+              <th>Resource Name</th>
+              <th>Consumer Name</th>
+              <th>Picked-Up</th>
+              <th>Days Passed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cnsmdRes of otherUsersCnsmdRes; let i=index">
+              <td>{{i+1}}</td>
+              <td>{{cnsmdRes.ResourceName}}</td>
+              <td>{{cnsmdRes.ConsumerName}}</td>
+              <td>{{cnsmdRes.PickUpDateTime | date: 'medium'}}</td>
+              <td>{{cnsmdRes.NoOfDays}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">All Available Users</h3>
+          </div>
+          <div class="panel-body em20Div">
+            <div class="list-group" *ngIf="users.length > 0">
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Sl.No.</th>
+                        <th>User Name</th>
+                        <th>Delete User</th>
+                        <th>Change Password</th>                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let resource of users; let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{resource.UserName}}</td>
+                        <td>
+                          <a (click)="DeleteResource(resource.UserId)"><i class="material-icons alignLeft">delete</i></a>
+                        </td>
+                        <td>
+                            <a data-toggle="modal" data-target="#myModal" (click)="ChangePassword(resource)"><i class="material-icons alignLeft">mode_edit</i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="align-middle">
+          <div class="row">
+            <div class="col-xs-8">
+              <select class="form-control" [(ngModel)]="consumerId">
+                <option selected="" value=""></option>
+                <option *ngFor="let consumer of consumers" [value]="consumer.Id">{{consumer.Name}}</option>
+              </select>
+            </div>
+            <div class="col-xs-4">
+              <button type="button" class="btn btn-primary btn-lg btn-block" (click)="OnConsumerChange()">Fetch</button>
+            </div>
+          </div>
+          <br />
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="TakeResource()">Take</button>
+          <br />
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="DropResource()">Drop</button>
+          <br />
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="SaveFinalizedResouces()">Save
+            Finalized Resouces</button>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Taken Resource</h3>
+          </div>
+          <div class="panel-body em20Div">
+            <div class="list-group" *ngIf="selectedUserCnsmdRes">
+              <a *ngFor="let consumedResources of selectedUserCnsmdRes" href="#" class="list-group-item"
+                (click)="SelectConsumedResources($event, consumedResources)">
+                {{consumedResources.ResourceName}}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- The Modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" (click)="hideModal()">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          Modal body..
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="sendModal()" >Send</button>
+          <button type="button" class="btn btn-danger" (click)="hideModal()">Close</button>
+  
+          <!-- this button is hidden, used to close from typescript -->
+          <button type="button" id="close-modal" data-dismiss="modal" style="display: none">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>

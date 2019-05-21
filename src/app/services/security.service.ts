@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 })
 export class SecurityService {
   userToken = '';
+  userId = '';
   apiUrl: string = 'http://localhost:28687/api/';
   //apiUrl : string = 'http://localhost:9349/api';
   constructor(private _httpClient: HttpClient) { }
@@ -31,5 +32,13 @@ export class SecurityService {
 
   GetUserToken() {
     return this.userToken;
+  }
+
+  SetUserId(userguid: string) {
+    this.userId = userguid;
+  }
+
+  GetUserId() {
+    return this.userId;
   }
 }
