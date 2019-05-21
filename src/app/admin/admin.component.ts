@@ -6,7 +6,7 @@ import { Buyer } from '../models/Buyer';
 import { Factory } from '../models/Factory';
 import { Users } from '../models/Users';
 import { ShippingMode } from '../models/ShippingMode';
-//import * as $ from 'jquery';
+import * as $ from 'jquery';
 //import 'bootstrap';
 //declare var $ : any;
 @Component({
@@ -90,6 +90,6 @@ export class AdminComponent implements OnInit {
   }
 
   ChangePassword(udata : Users){
-      //$("#myModal").modal('show');
+      $("#myModal").modal('show');
   }
 }
