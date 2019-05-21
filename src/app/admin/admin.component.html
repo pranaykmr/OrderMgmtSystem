@@ -32,31 +32,33 @@
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">All Available Users</h3>
+            <a (click)="AddNewUser()"><i class="material-icons">add_circle_outline</i></a>
           </div>
           <div class="panel-body em20Div">
             <div class="list-group" *ngIf="users.length > 0">
-                <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Sl.No.</th>
-                        <th>User Name</th>
-                        <th>Delete User</th>
-                        <th>Change Password</th>                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let resource of users; let i=index">
-                        <td>{{i+1}}</td>
-                        <td>{{resource.UserName}}</td>
-                        <td>
-                          <a (click)="DeleteResource(resource.UserId)"><i class="material-icons alignLeft">delete</i></a>
-                        </td>
-                        <td>
-                            <a data-toggle="modal" data-target="#myModal" (click)="ChangePassword(resource)"><i class="material-icons alignLeft">mode_edit</i></a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Sl.No.</th>
+                    <th>User Name</th>
+                    <th>Delete User</th>
+                    <th>Change Password</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let resource of users; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{resource.UserName}}</td>
+                    <td>
+                      <a (click)="DeleteResource(resource.UserId)"><i class="material-icons alignLeft">delete</i></a>
+                    </td>
+                    <td>
+                      <a data-toggle="modal" data-target="#changePwd" (click)="ChangePassword(resource)"><i
+                          class="material-icons alignLeft">mode_edit</i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -100,30 +102,63 @@
       </div>
     </div>
     <!-- The Modal -->
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-  
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" (click)="hideModal()">&times;</button>
-        </div>
-  
-        <!-- Modal body -->
-        <div class="modal-body">
-          Modal body..
-        </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="sendModal()" >Send</button>
-          <button type="button" class="btn btn-danger" (click)="hideModal()">Close</button>
-  
-          <!-- this button is hidden, used to close from typescript -->
-          <button type="button" id="close-modal" data-dismiss="modal" style="display: none">Close</button>
+    <div class="modal fade" id="changePwd">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Change Password for '{{ChangePwdUser.UserName}}'</h4>
+            <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <h5>Enter New Password</h5>
+            <input type="password" name="newpass" class="form-control" [(ngModel)]="newPassword" />
+            <h5>Repeat New Password</h5>
+            <input type="password" name="newpassrepeat" class="form-control" [(ngModel)]="newPasswordRepeat" />
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="ChangePwd()">Send</button>
+            <button type="button" class="btn btn-danger" (click)="hideModal()">Close</button>
+
+            <!-- this button is hidden, used to close from typescript -->
+            <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <div class="modal fade" id="addUser">
+        <div class="modal-dialog">
+          <div class="modal-content">
+  
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Add New User</h4>
+              <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+            </div>
+  
+            <!-- Modal body -->
+            <div class="modal-body">
+              <h5>Enter New Password UserName</h5>
+              <input type="text" name="newuseruname" class="form-control" [(ngModel)]="AddNewUserData.UserName" />
+              <h5>Enter Password</h5>
+              <input type="password" name="newuserpass" class="form-control" [(ngModel)]="AddNewUserData.Password" />
+            </div>
+  
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="AddNewUserToServer()">Send</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+  
+              <!-- this button is hidden, used to close from typescript -->
+              <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
   </div>

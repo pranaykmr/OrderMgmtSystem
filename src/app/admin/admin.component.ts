@@ -6,8 +6,10 @@ import { Buyer } from '../models/Buyer';
 import { Factory } from '../models/Factory';
 import { Users } from '../models/Users';
 import { ShippingMode } from '../models/ShippingMode';
-import * as $ from 'jquery';
-//import 'bootstrap';
+import { SecurityService } from '../services/security.service';
+import { Guid } from "guid-typescript";
+import * as $AB from 'jquery';
+import 'bootstrap';
 //declare var $ : any;
 @Component({
   selector: 'app-admin',
@@ -16,24 +18,32 @@ import * as $ from 'jquery';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private spinner: NgxSpinnerService, private _adminDataService: AdminDataService) { }
+  constructor(private spinner: NgxSpinnerService, private _adminDataService: AdminDataService, private _securityService: SecurityService) { }
 
   ngOnInit() {
-  this.orders=new Array<Order>();
-  this.buyers=new Array<Buyer>();
-  this.factories=new Array<Factory>();
-  this.users=new Array<Users>();
-  this.shipppingmodes=new Array<ShippingMode>();
-  this.GetUsers();
+    this.orders = new Array<Order>();
+    this.buyers = new Array<Buyer>();
+    this.factories = new Array<Factory>();
+    this.users = new Array<Users>();
+    this.shipppingmodes = new Array<ShippingMode>();
+    this.GetUsers();
+    this.newPassword = "";
+    this.newPasswordRepeat = "";
+    this.ChangePwdUser = new Users();
+    this.AddNewUserData = new Users();
   }
 
   public orders: Order[];
   public buyers: Buyer[];
   public factories: Factory[];
-  public users:Users[];
-  public shipppingmodes:ShippingMode[];
+  public users: Users[];
+  public shipppingmodes: ShippingMode[];
+  public newPassword: string;
+  public newPasswordRepeat: string;
+  public ChangePwdUser: Users;
+  public AddNewUserData: Users;
 
-  GetOrders(){
+  GetOrders() {
     this._adminDataService.GetOrders().subscribe(
       (data: Order[]) => {
         this.orders = data;
@@ -41,7 +51,7 @@ export class AdminComponent implements OnInit {
     )
   }
 
-  GetBuyers(){
+  GetBuyers() {
     this._adminDataService.GetBuyers().subscribe(
       (data: Buyer[]) => {
         this.buyers = data;
@@ -49,7 +59,7 @@ export class AdminComponent implements OnInit {
     )
   }
 
-  GetFactory(){
+  GetFactory() {
     this._adminDataService.GetFactory().subscribe(
       (data: Factory[]) => {
         this.factories = data;
@@ -57,18 +67,18 @@ export class AdminComponent implements OnInit {
     )
   }
 
-  GetUsers(){
+  GetUsers() {
     this._adminDataService.GetUsers().subscribe(
       (data: Users[]) => {
         this.users = data;
       },
-      (error: any)=>{
+      (error: any) => {
         console.log(error);
       }
     )
   }
 
-  GetShippingModes(){
+  GetShippingModes() {
     this._adminDataService.GetShippingModes().subscribe(
       (data: ShippingMode[]) => {
         this.shipppingmodes = data;
@@ -76,20 +86,61 @@ export class AdminComponent implements OnInit {
     )
   }
 
-    DeleteResource(cons: string){
+  DeleteResource(cons: string) {
     this._adminDataService.DeleteUser(cons).subscribe(
       (data: boolean) => {
-        if(data)
+        if (data)
           this.GetUsers();
       },
-      (error: any)=>{
+      (error: any) => {
         console.log(error);
         this.spinner.hide();
       }
     )
   }
 
-  ChangePassword(udata : Users){
-      $("#myModal").modal('show');
+  ChangePassword(udata: Users) {
+    this.ChangePwdUser = udata;
+    //$("#changePwd").modal('show');
+  }
+
+  ChangePwd() {
+    if (this.newPassword == this.newPasswordRepeat) {
+      this._adminDataService.UpdatePassword(this.newPassword, this.ChangePwdUser.UserId).subscribe(
+        (data: boolean) => {
+          if (data)
+            this.GetUsers();
+        },
+        (error: any) => {
+          console.log(error);
+          this.spinner.hide();
+        }
+      )
+    }
+    else {
+      alert('Passwords Do Not Match');
+    }
+  }
+
+  hideModal() {
+    $("#changePwd").modal('hide');
+  }
+
+  AddNewUser() {
+    $("#addUser").modal('show');
+  }
+
+  AddNewUserToServer() {
+    this.AddNewUserData.ActiveToken = null;
+    this.AddNewUserData.IsActive = false;
+    this.AddNewUserData.IsDeleted = true;
+    this.AddNewUserData.UserId = Guid.create().toString();
+    this._adminDataService.AddNewUser(this.AddNewUserData).subscribe( (data: boolean)=> {
+
+    },
+    (error: any) => {
+      console.log(error);
+      this.spinner.hide();
+    })
   }
 }

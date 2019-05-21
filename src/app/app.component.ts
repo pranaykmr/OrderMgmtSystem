@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.IsUserTokenValid();
   }
-
+ 
   WhenTokenValuePoplated(token: string){
     this.currentToken = token;
     this._securityService.SetUserToken(token);

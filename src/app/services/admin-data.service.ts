@@ -15,7 +15,7 @@ import { ShippingMode } from '../models/ShippingMode';
 export class AdminDataService {
   apiUrl: string = 'http://localhost:28687/api/';
   constructor(private _httpClient: HttpClient, private _securityService: SecurityService) { }
-  
+
   GetOrders(): Observable<Order[]> {
     return this._httpClient.get<Order[]>(`${this.apiUrl}/Orders`);
   }
@@ -37,6 +37,19 @@ export class AdminDataService {
   }
 
   DeleteUser(userId: string): Observable<Boolean> {
-    return this._httpClient.get<Boolean>(`${this.apiUrl}/login/DeleteUser?userId=`+ userId);
+    return this._httpClient.get<Boolean>(`${this.apiUrl}/login/DeleteUser?userId=` + userId);
+  }
+
+  UpdatePassword(newPassword: string, userId: string): Observable<Boolean> {
+    return this._httpClient.get<Boolean>(`${this.apiUrl}/login/UpdatePassword?newPassword=` + newPassword + '&userId=' + userId);
+  }
+
+  AddNewUser(newUser: Users): Observable<Boolean> {
+    //return this._httpClient.get<Boolean>(`${this.apiUrl}/login/UpdatePassword?newPassword=`);
+    return this._httpClient.post<Boolean>(`${this.apiUrl}/Security_User`, newUser, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
   }
 }
