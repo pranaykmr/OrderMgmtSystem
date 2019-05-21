@@ -8,8 +8,8 @@ import { Users } from '../models/Users';
 import { ShippingMode } from '../models/ShippingMode';
 import { SecurityService } from '../services/security.service';
 import { Guid } from "guid-typescript";
-import * as $AB from 'jquery';
-import 'bootstrap';
+//import * as $ from 'jquery';
+//import 'bootstrap';
 //declare var $ : any;
 @Component({
   selector: 'app-admin',
@@ -135,7 +135,7 @@ export class AdminComponent implements OnInit {
     this.AddNewUserData.IsActive = false;
     this.AddNewUserData.IsDeleted = true;
     this.AddNewUserData.UserId = Guid.create().toString();
-    this._adminDataService.AddNewUser(this.AddNewUserData).subscribe( (data: boolean)=> {
+    this._adminDataService.AddNewUser(this.AddNewUserData).subscribe( (data: void)=> {
 
     },
     (error: any) => {

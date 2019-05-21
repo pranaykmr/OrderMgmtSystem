@@ -6,10 +6,10 @@
                 this.ActiveToken = null;
                 this.UserId = "";
             }
+            public UserId: string
             public UserName : string;
             public Password : string;
             public IsActive : boolean;
             public ActiveToken : string;
             public IsDeleted: boolean;
-            public UserId: string
             }

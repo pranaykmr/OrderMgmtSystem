@@ -13,7 +13,7 @@ import { ShippingMode } from '../models/ShippingMode';
   providedIn: 'root'
 })
 export class AdminDataService {
-  apiUrl: string = 'http://localhost:28687/api/';
+  apiUrl: string = 'http://localhost:28687/api';
   constructor(private _httpClient: HttpClient, private _securityService: SecurityService) { }
 
   GetOrders(): Observable<Order[]> {
@@ -44,9 +44,9 @@ export class AdminDataService {
     return this._httpClient.get<Boolean>(`${this.apiUrl}/login/UpdatePassword?newPassword=` + newPassword + '&userId=' + userId);
   }
 
-  AddNewUser(newUser: Users): Observable<Boolean> {
+  AddNewUser(newUser: Users): Observable<void> {
     //return this._httpClient.get<Boolean>(`${this.apiUrl}/login/UpdatePassword?newPassword=`);
-    return this._httpClient.post<Boolean>(`${this.apiUrl}/Security_User`, newUser, {
+    return this._httpClient.post<void>(`${this.apiUrl}/Security_User`, newUser, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
