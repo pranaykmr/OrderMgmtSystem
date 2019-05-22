@@ -2,7 +2,7 @@
   <div class="row">
       <div class="panel panel-primary">
           <div class="panel-heading">
-              <h3 class="panel-title">Resources Taken By Others</h3>
+              <h3 class="panel-title">Orders</h3>
           </div>
           <div class="panel-body em10Div">
               <table class="table table-striped">
@@ -50,11 +50,11 @@
                                       <td>{{i+1}}</td>
                                       <td>{{resource.UserName}}</td>
                                       <td>
-                                          <a (click)="DeleteResource(resource.UserId)" class="cursorPointer"><i class="material-icons alignLeft">delete</i></a>
+                                          <a *ngIf="!resource.IsDeleted" (click)="DeleteResource(resource.UserId)" class="cursorPointer"><i class="material-icons">delete</i></a>
                                       </td>
                                       <td>
                                           <a data-toggle="modal" data-target="#changePwd" (click)="ChangePassword(resource)" class="cursorPointer">
-                                              <i class="material-icons alignLeft">mode_edit</i>
+                                              <i class="material-icons">mode_edit</i>
                                           </a>
                                       </td>
                                   </tr>
@@ -142,7 +142,7 @@
                                       <th>Sl.No.</th>
                                       <th>Buyer Name</th>
                                       <th>Location</th>
-                                      <th>Delete</th>
+                                      <th>Edit Info</th>
                                   </tr>
                               </thead>
                               <tbody>

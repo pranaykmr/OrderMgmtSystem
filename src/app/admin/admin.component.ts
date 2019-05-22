@@ -175,7 +175,7 @@ export class AdminComponent implements OnInit {
   AddNewUserToServer() {
     this.AddNewUserData.ActiveToken = null;
     this.AddNewUserData.IsActive = false;
-    this.AddNewUserData.IsDeleted = true;
+    this.AddNewUserData.IsDeleted = false;
     this.AddNewUserData.UserId = Guid.create().toString();
     this._adminDataService.AddNewUser(this.AddNewUserData).subscribe((data: void) => {
       this.AddNewUserData = new Users();

@@ -48,7 +48,6 @@ export class AdminDataService {
     //return this._httpClient.get<Boolean>(`${this.apiUrl}/login/UpdatePassword?newPassword=`);
     let headers = new HttpHeaders();
         headers.append('Content-Type','application/json');
-        headers.append('Access-Control-Allow-Origin',"*");
         let options = { headers: headers };
         return this._httpClient.post<void>(`${this.apiUrl}/Security_User`, newUser, options);
   }
