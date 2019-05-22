@@ -11,3 +11,15 @@
 .alignLeft{
     float:left;
 }
+
+.topMargin{
+    margin-top:4px;
+}
+
+.cursorPointer{
+    cursor: pointer;
+}
+
+tr > th {
+    text-align: center;
+}

@@ -11,6 +11,7 @@ export class Order{
         this.Factory_Price = null;
         this.Total_Value = false;
         this.Ship_Date = null;
+        this.BuyerId = "";
     }
     public Order_No : Number;
     public Style_No : string;
@@ -23,4 +24,5 @@ export class Order{
     public Factory_Price : any;
     public Total_Value : any;
     public Ship_Date : Date;
+    public BuyerId : string;
 }

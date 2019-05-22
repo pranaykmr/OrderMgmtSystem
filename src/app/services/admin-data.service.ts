@@ -46,10 +46,10 @@ export class AdminDataService {
 
   AddNewUser(newUser: Users): Observable<void> {
     //return this._httpClient.get<Boolean>(`${this.apiUrl}/login/UpdatePassword?newPassword=`);
-    return this._httpClient.post<void>(`${this.apiUrl}/Security_User`, newUser, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    });
+    let headers = new HttpHeaders();
+        headers.append('Content-Type','application/json');
+        headers.append('Access-Control-Allow-Origin',"*");
+        let options = { headers: headers };
+        return this._httpClient.post<void>(`${this.apiUrl}/Security_User`, newUser, options);
   }
 }

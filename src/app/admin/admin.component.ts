@@ -26,11 +26,18 @@ export class AdminComponent implements OnInit {
     this.factories = new Array<Factory>();
     this.users = new Array<Users>();
     this.shipppingmodes = new Array<ShippingMode>();
-    this.GetUsers();
     this.newPassword = "";
     this.newPasswordRepeat = "";
     this.ChangePwdUser = new Users();
     this.AddNewUserData = new Users();
+    this.FactoryEditData = new Factory();
+    this.NewShippingMode = new ShippingMode();
+    this.BuyerEditData = new Buyer();
+    this.GetUsers();
+    this.GetOrders();
+    this.GetBuyers();
+    this.GetFactory();
+    this.GetShippingModes();
   }
 
   public orders: Order[];
@@ -42,11 +49,17 @@ export class AdminComponent implements OnInit {
   public newPasswordRepeat: string;
   public ChangePwdUser: Users;
   public AddNewUserData: Users;
+  public FactoryEditData: Factory;
+  public NewShippingMode: ShippingMode;
+  public BuyerEditData: Buyer;
 
   GetOrders() {
     this._adminDataService.GetOrders().subscribe(
       (data: Order[]) => {
         this.orders = data;
+      },
+      (error: any) => {
+        console.log(error);
       }
     )
   }
@@ -55,6 +68,9 @@ export class AdminComponent implements OnInit {
     this._adminDataService.GetBuyers().subscribe(
       (data: Buyer[]) => {
         this.buyers = data;
+      },
+      (error: any) => {
+        console.log(error);
       }
     )
   }
@@ -63,6 +79,9 @@ export class AdminComponent implements OnInit {
     this._adminDataService.GetFactory().subscribe(
       (data: Factory[]) => {
         this.factories = data;
+      },
+      (error: any) => {
+        console.log(error);
       }
     )
   }
@@ -82,6 +101,9 @@ export class AdminComponent implements OnInit {
     this._adminDataService.GetShippingModes().subscribe(
       (data: ShippingMode[]) => {
         this.shipppingmodes = data;
+      },
+      (error: any) => {
+        console.log(error);
       }
     )
   }
@@ -99,6 +121,22 @@ export class AdminComponent implements OnInit {
     )
   }
 
+  DeleteShippingMode(modeId: string) {
+
+  }
+
+  EditFactory(factoryObj: Factory) {
+    this.FactoryEditData = factoryObj;
+  }
+
+  EditAddFactoryToServer() {
+
+  }
+
+  AddFactory() {
+    this.FactoryEditData = new Factory();
+  }
+
   ChangePassword(udata: Users) {
     this.ChangePwdUser = udata;
     //$("#changePwd").modal('show');
@@ -110,10 +148,14 @@ export class AdminComponent implements OnInit {
         (data: boolean) => {
           if (data)
             this.GetUsers();
+          this.newPassword = "";
+          this.newPasswordRepeat = "";
         },
         (error: any) => {
           console.log(error);
           this.spinner.hide();
+          this.newPassword = "";
+          this.newPasswordRepeat = "";
         }
       )
     }
@@ -135,12 +177,20 @@ export class AdminComponent implements OnInit {
     this.AddNewUserData.IsActive = false;
     this.AddNewUserData.IsDeleted = true;
     this.AddNewUserData.UserId = Guid.create().toString();
-    this._adminDataService.AddNewUser(this.AddNewUserData).subscribe( (data: void)=> {
-
+    this._adminDataService.AddNewUser(this.AddNewUserData).subscribe((data: void) => {
+      this.AddNewUserData = new Users();
     },
-    (error: any) => {
-      console.log(error);
-      this.spinner.hide();
-    })
+      (error: any) => {
+        console.log(error);
+        this.spinner.hide();
+      })
+  }
+
+  EditBuyer(modedata: Buyer) {
+    this.BuyerEditData = modedata;
+  }
+
+  AddBuyer(){
+    this.BuyerEditData = new Buyer();
   }
 }

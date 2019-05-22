@@ -1,164 +1,313 @@
 <div class="container">
   <div class="row">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Resources Taken By Others</h3>
-      </div>
-      <div class="panel-body em10Div">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Sl.No.</th>
-              <th>Resource Name</th>
-              <th>Consumer Name</th>
-              <th>Picked-Up</th>
-              <th>Days Passed</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let cnsmdRes of otherUsersCnsmdRes; let i=index">
-              <td>{{i+1}}</td>
-              <td>{{cnsmdRes.ResourceName}}</td>
-              <td>{{cnsmdRes.ConsumerName}}</td>
-              <td>{{cnsmdRes.PickUpDateTime | date: 'medium'}}</td>
-              <td>{{cnsmdRes.NoOfDays}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-4">
-        <div class="panel panel-primary">
+      <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title col-xs-10" style="margin-top: 4px">All Available Users</h3>
-            <a (click)="AddNewUser()"><i style="color:white" class="material-icons">add_circle_outline</i></a>
+              <h3 class="panel-title">Resources Taken By Others</h3>
           </div>
-          <div class="panel-body em20Div">
-            <div class="list-group" *ngIf="users.length > 0">
+          <div class="panel-body em10Div">
               <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Sl.No.</th>
-                    <th>User Name</th>
-                    <th>Delete User</th>
-                    <th>Change Password</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let resource of users; let i=index">
-                    <td>{{i+1}}</td>
-                    <td>{{resource.UserName}}</td>
-                    <td>
-                      <a (click)="DeleteResource(resource.UserId)"><i class="material-icons alignLeft">delete</i></a>
-                    </td>
-                    <td>
-                      <a data-toggle="modal" data-target="#changePwd" (click)="ChangePassword(resource)"><i
-                          class="material-icons alignLeft">mode_edit</i></a>
-                    </td>
-                  </tr>
-                </tbody>
+                  <thead>
+                      <tr>
+                          <th>Sl.No.</th>
+                          <th>Resource Name</th>
+                          <th>Consumer Name</th>
+                          <th>Picked-Up</th>
+                          <th>Days Passed</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let cnsmdRes of otherUsersCnsmdRes; let i=index">
+                          <td>{{i+1}}</td>
+                          <td>{{cnsmdRes.ResourceName}}</td>
+                          <td>{{cnsmdRes.ConsumerName}}</td>
+                          <td>{{cnsmdRes.PickUpDateTime | date: 'medium'}}</td>
+                          <td>{{cnsmdRes.NoOfDays}}</td>
+                      </tr>
+                  </tbody>
               </table>
-            </div>
           </div>
-        </div>
       </div>
-      <div class="col-xs-4">
-        <div class="align-middle">
-          <div class="row">
-            <div class="col-xs-8">
-              <select class="form-control" [(ngModel)]="consumerId">
-                <option selected="" value=""></option>
-                <option *ngFor="let consumer of consumers" [value]="consumer.Id">{{consumer.Name}}</option>
-              </select>
-            </div>
-            <div class="col-xs-4">
-              <button type="button" class="btn btn-primary btn-lg btn-block" (click)="OnConsumerChange()">Fetch</button>
-            </div>
+      <div class="row">
+          <div class="col-xs-6">
+              <div class="panel panel-primary">
+                  <div class="panel-heading">
+                      <h3 class="panel-title col-xs-10 topMargin">All Available Users</h3>
+                      <a (click)="AddNewUser()" class="cursorPointer"><i style="color:white" class="material-icons">add_circle_outline</i></a>
+                  </div>
+                  <div class="panel-body em20Div">
+                      <div class="list-group" *ngIf="users.length > 0">
+                          <table class="table table-striped">
+                              <thead>
+                                  <tr>
+                                      <th>Sl.No.</th>
+                                      <th>User Name</th>
+                                      <th>Delete</th>
+                                      <th>Change Pass</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let resource of users; let i=index">
+                                      <td>{{i+1}}</td>
+                                      <td>{{resource.UserName}}</td>
+                                      <td>
+                                          <a (click)="DeleteResource(resource.UserId)" class="cursorPointer"><i class="material-icons alignLeft">delete</i></a>
+                                      </td>
+                                      <td>
+                                          <a data-toggle="modal" data-target="#changePwd" (click)="ChangePassword(resource)" class="cursorPointer">
+                                              <i class="material-icons alignLeft">mode_edit</i>
+                                          </a>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
           </div>
-          <br />
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="TakeResource()">Take</button>
-          <br />
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="DropResource()">Drop</button>
-          <br />
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="SaveFinalizedResouces()">Save
-            Finalized Resouces</button>
-        </div>
-      </div>
-      <div class="col-xs-4">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Taken Resource</h3>
+          <div class="col-xs-6">
+              <div class="panel panel-primary">
+                  <div class="panel-heading">
+                      <h3 class="panel-title col-xs-10 topMargin">Factories</h3>
+                      <a (click)="AddFactory()" data-target="#addEditFactory" data-toggle="modal" class="cursorPointer"><i style="color:white" class="material-icons">add_circle_outline</i></a>
+                  </div>
+                  <div class="panel-body em20Div">
+                      <div class="list-group" *ngIf="factories.length > 0">
+                          <table class="table table-striped">
+                              <thead>
+                                  <tr>
+                                      <th>Sl.No.</th>
+                                      <th>Factory Name</th>
+                                      <th>Factory Location</th>
+                                      <th>Edit Factory</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let fact of factories; let i=index">
+                                      <td>{{i+1}}</td>
+                                      <td>{{fact.Name}}</td>
+                                      <td>{{fact.Location}}</td>
+                                      <td>
+                                          <a (click)="EditFactory(fact)" data-target="#addEditFactory" data-toggle="modal" class="cursorPointer"><i class="material-icons">mode_edit</i></a>
+                                      </td>
+                                      <td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
           </div>
-          <div class="panel-body em20Div">
-            <div class="list-group" *ngIf="selectedUserCnsmdRes">
-              <a *ngFor="let consumedResources of selectedUserCnsmdRes" href="#" class="list-group-item"
-                (click)="SelectConsumedResources($event, consumedResources)">
-                {{consumedResources.ResourceName}}
-              </a>
-            </div>
+          <div class="col-xs-6">
+              <div class="panel panel-primary">
+                  <div class="panel-heading">
+                      <h3 class="panel-title col-xs-10 topMargin">Shipping Modes</h3>
+                      <a (click)="AddShippingMode()" data-target="#addShippingMode" data-toggle="modal" class="cursorPointer"><i style="color:white" class="material-icons">add_circle_outline</i></a>
+                  </div>
+                  <div class="panel-body em20Div">
+                      <div class="list-group" *ngIf="shipppingmodes.length > 0">
+                          <table class="table table-striped">
+                              <thead>
+                                  <tr>
+                                      <th>Sl.No.</th>
+                                      <th>Shipping Mode</th>
+                                      <th>Delete Mode</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let mode of shipppingmodes; let i=index">
+                                      <td>{{i+1}}</td>
+                                      <td>{{mode.ShippingModeName}}</td>
+                                      <td>
+                                          <a (click)="DeleteShippingMode(mode.ShippingMode_Id)" class="cursorPointer"><i class="material-icons">delete</i></a>
+                                      </td>
+                                      <td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <!-- The Modal -->
-    <div class="modal fade" id="changePwd">
-      <div class="modal-dialog">
-        <div class="modal-content">
-
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Change Password for '{{ChangePwdUser.UserName}}'</h4>
-            <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+          <div class="col-xs-6">
+              <div class="panel panel-primary">
+                  <div class="panel-heading">
+                      <h3 class="panel-title col-xs-10 topMargin">Buyers</h3>
+                      <a (click)="AddBuyer()" data-target="#addEditBuyer" data-toggle="modal" class="cursorPointer"><i style="color:white" class="material-icons">add_circle_outline</i></a>
+                  </div>
+                  <div class="panel-body em20Div">
+                      <div class="list-group" *ngIf="shipppingmodes.length > 0">
+                          <table class="table table-striped">
+                              <thead>
+                                  <tr>
+                                      <th>Sl.No.</th>
+                                      <th>Buyer Name</th>
+                                      <th>Location</th>
+                                      <th>Delete</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let byr of buyers; let i=index">
+                                      <td>{{i+1}}</td>
+                                      <td>{{byr.BuyerName}}</td>
+                                      <td>{{byr.BuyerLocation}}</td>
+                                      <td>
+                                          <a (click)="EditBuyer(byr)" data-target="#addEditBuyer" data-toggle="modal" data-class="cursorPointer"><i class="material-icons">mode_edit</i></a>
+                                      </td>
+                                      <td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
           </div>
-
-          <!-- Modal body -->
-          <div class="modal-body">
-            <h5>Enter New Password</h5>
-            <input type="password" name="newpass" class="form-control" [(ngModel)]="newPassword" />
-            <h5>Repeat New Password</h5>
-            <input type="password" name="newpassrepeat" class="form-control" [(ngModel)]="newPasswordRepeat" />
-          </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="ChangePwd()">Send</button>
-            <button type="button" class="btn btn-danger" (click)="hideModal()">Close</button>
-
-            <!-- this button is hidden, used to close from typescript -->
-            <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="addUser">
-        <div class="modal-dialog">
-          <div class="modal-content">
-  
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Add New User</h4>
-              <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
-            </div>
-  
-            <!-- Modal body -->
-            <div class="modal-body">
-              <h5>Enter New Password UserName</h5>
-              <input type="text" name="newuseruname" class="form-control" [(ngModel)]="AddNewUserData.UserName" />
-              <h5>Enter Password</h5>
-              <input type="password" name="newuserpass" class="form-control" [(ngModel)]="AddNewUserData.Password" />
-            </div>
-  
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" (click)="AddNewUserToServer()">Send</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-  
-              <!-- this button is hidden, used to close from typescript -->
-              <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
-            </div>
-          </div>
-        </div>
       </div>
   </div>
+  <!-- The Modal -->
+  <div class="modal fade" id="changePwd">
+      <div class="modal-dialog">
+          <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title">Change Password for '{{ChangePwdUser.UserName}}'</h4>
+                  <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                  <h5>Enter New Password</h5>
+                  <input type="password" name="newpass" class="form-control" [(ngModel)]="newPassword" />
+                  <h5>Repeat New Password</h5>
+                  <input type="password" name="newpassrepeat" class="form-control" [(ngModel)]="newPasswordRepeat" />
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-primary cursorPointer" (click)="ChangePwd()">Send</button>
+                  <button type="button" class="btn btn-danger cursorPointer" (click)="hideModal()">Close</button>
+
+                  <!-- this button is hidden, used to close from typescript -->
+                  <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal fade" id="addUser">
+      <div class="modal-dialog">
+          <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title">Add New User</h4>
+                  <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                  <h5>Enter New Password UserName</h5>
+                  <input type="text" name="newuseruname" class="form-control" [(ngModel)]="AddNewUserData.UserName" />
+                  <h5>Enter Password</h5>
+                  <input type="password" name="newuserpass" class="form-control" [(ngModel)]="AddNewUserData.Password" />
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-primary cursorPointer" (click)="AddNewUserToServer()">Send</button>
+                  <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
+
+                  <!-- this button is hidden, used to close from typescript -->
+                  <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal fade" id="addEditFactory">
+      <div class="modal-dialog">
+          <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title">Add/Edit Factory</h4>
+                  <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                  <h5>Enter Factory Name</h5>
+                  <input type="text" name="fanem" class="form-control" [(ngModel)]="FactoryEditData.Name" />
+                  <h5>Enter Factory Location</h5>
+                  <input type="text" name="flocation" class="form-control" [(ngModel)]="FactoryEditData.Location" />
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-primary cursorPointer" (click)="EditAddFactoryToServer()">Send</button>
+                  <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
+
+                  <!-- this button is hidden, used to close from typescript -->
+                  <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="modal fade" id="addShippingMode">
+      <div class="modal-dialog">
+          <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title">Add Shipping Mode</h4>
+                  <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                  <h5>Enter Shipping Mode Name</h5>
+                  <input type="text" name="fanem" class="form-control" [(ngModel)]="FactoryEditData.Name" />
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-primary cursorPointer" (click)="AddBuyerToServer()">Send</button>
+                  <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
+
+                  <!-- this button is hidden, used to close from typescript -->
+                  <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal fade" id="addEditBuyer">
+      <div class="modal-dialog">
+          <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title">Add/Edit Buyer</h4>
+                  <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                  <h5>Enter Buyer Name</h5>
+                  <input type="text" name="fanem" class="form-control" [(ngModel)]="BuyerEditData.BuyerName" />
+                  <h5>Enter Buyer Location</h5>
+                  <input type="text" name="flocation" class="form-control" [(ngModel)]="BuyerEditData.BuyerLocation" />
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-primary cursorPointer" (click)="EditAddBuyerToServer()">Send</button>
+                  <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
+
+                  <!-- this button is hidden, used to close from typescript -->
+                  <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
