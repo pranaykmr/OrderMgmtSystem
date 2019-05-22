@@ -179,10 +179,13 @@ export class AdminComponent implements OnInit {
     this.AddNewUserData.UserId = Guid.create().toString();
     this._adminDataService.AddNewUser(this.AddNewUserData).subscribe((data: void) => {
       this.AddNewUserData = new Users();
+      this.GetUsers();
+      $("#addUser").modal('hide');
     },
       (error: any) => {
         console.log(error);
         this.spinner.hide();
+        $("#addUser").modal('hide');
       })
   }
 
@@ -190,7 +193,8 @@ export class AdminComponent implements OnInit {
     this.BuyerEditData = modedata;
   }
 
-  AddBuyer(){
+  AddBuyer() {
     this.BuyerEditData = new Buyer();
   }
+  
 }

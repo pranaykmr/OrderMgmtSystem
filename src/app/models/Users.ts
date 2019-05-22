@@ -5,6 +5,7 @@
                 this.IsActive = false;
                 this.ActiveToken = null;
                 this.UserId = "";
+                this.IsAdmin = false;
             }
             public UserId: string
             public UserName : string;
@@ -12,4 +13,5 @@
             public IsActive : boolean;
             public ActiveToken : string;
             public IsDeleted: boolean;
+            public IsAdmin: boolean;
             }

@@ -210,6 +210,8 @@
                   <input type="text" name="newuseruname" class="form-control" [(ngModel)]="AddNewUserData.UserName" />
                   <h5>Enter Password</h5>
                   <input type="password" name="newuserpass" class="form-control" [(ngModel)]="AddNewUserData.Password" />
+                  <h5>Is Administrator</h5>
+                  <input type="checkbox" [checked]="AddNewUserData.IsAdmin" (change)="AddNewUserData.IsAdmin = !AddNewUserData.IsAdmin"/>
               </div>
 
               <!-- Modal footer -->
