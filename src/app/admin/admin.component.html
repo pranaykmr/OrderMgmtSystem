@@ -2,13 +2,13 @@
     <div class="row">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title col-xs-10">Orders</h3>
+                <h3 class="panel-title col-xs-10 topMargin">Orders</h3>
                 <a data-target="#addEditOrder" data-toggle="modal" class="cursorPointer">
                     <i style="color:white"
                        class="material-icons">add_circle_outline</i>
                 </a>
             </div>
-            <div class="panel-body em10Div">
+            <div class="panel-body em25Div">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -153,18 +153,17 @@
                                     <tr>
                                         <th>Sl.No.</th>
                                         <th>Shipping Mode</th>
-                                        <th>Delete Mode</th>
+                                        <!-- <th>Delete Mode</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let mode of shipppingmodes; let i=index">
                                         <td>{{i+1}}</td>
                                         <td>{{mode.ShippingModeName}}</td>
-                                        <td>
+                                        <!-- <td>
                                             <a (click)="DeleteShippingMode(mode.ShippingMode_Id)"
                                                class="cursorPointer"><i class="material-icons">delete</i></a>
-                                        </td>
-                                        <td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>
