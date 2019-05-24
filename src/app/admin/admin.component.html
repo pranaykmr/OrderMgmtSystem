@@ -1,331 +1,442 @@
 <div class="container">
-  <div class="row">
-      <div class="panel panel-primary">
-          <div class="panel-heading">
-              <h3 class="panel-title">Orders</h3>
-          </div>
-          <div class="panel-body em10Div">
-              <table class="table table-striped">
-                  <thead>
-                      <tr>
-                          <th>Sl.No.</th>
-                          <th>Order No.</th>
-                          <th>Style No.</th>
-                          <th>Quantity</th>
-                          <th>Delivery</th>
-                          <th>Buyer Name</th>
-                          <th>Factory Name</th>
-                          <th>P.O #</th>
-                          <th>Shipping Mode</th>
-                          <th>Price FOB</th>
-                          <th>Factory Price</th>
-                          <th>Total Value</th>
-                          <th>Ship Date</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr *ngFor="let or of orders; let i=index">
-                          <td>{{i+1}}</td>
-                          <td>{{or.OrderNo}}</td>
-                          <td>{{or.StyleNo}}</td>
-                          <td>{{or.Quantity}}</td>
-                          <td>{{or.Delivery | date: 'medium'}}</td>
-                          <td>{{or.BuyerName}}</td>
-                          <td>{{or.FactoryName}}</td>
-                          <td>{{or.PushraseOrderNo}}</td>
-                          <td>{{or.ShippingModeName}}</td>
-                          <td>{{or.PriceFOB}}</td>
-                          <td>{{or.FactoryPrice}}</td>
-                          <td>{{or.TotalValue}}</td>
-                          <td>{{or.ShipDate | date: 'medium'}}</td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6">
-              <div class="panel panel-primary">
-                  <div class="panel-heading">
-                      <h3 class="panel-title col-xs-10 topMargin">All Available Users</h3>
-                      <a (click)="AddNewUser()" class="cursorPointer"><i style="color:white" class="material-icons">add_circle_outline</i></a>
-                  </div>
-                  <div class="panel-body em20Div">
-                      <div class="list-group" *ngIf="users.length > 0">
-                          <table class="table table-striped">
-                              <thead>
-                                  <tr>
-                                      <th>Sl.No.</th>
-                                      <th>User Name</th>
-                                      <th>Delete</th>
-                                      <th>Change Pass</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr *ngFor="let resource of users; let i=index">
-                                      <td>{{i+1}}</td>
-                                      <td>{{resource.UserName}}</td>
-                                      <td>
-                                          <a *ngIf="!resource.IsDeleted" (click)="DeleteResource(resource.UserId)" class="cursorPointer"><i class="material-icons">delete</i></a>
-                                      </td>
-                                      <td>
-                                          <a data-toggle="modal" data-target="#changePwd" (click)="ChangePassword(resource)" class="cursorPointer">
-                                              <i class="material-icons">mode_edit</i>
-                                          </a>
-                                      </td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-xs-6">
-              <div class="panel panel-primary">
-                  <div class="panel-heading">
-                      <h3 class="panel-title col-xs-10 topMargin">Factories</h3>
-                      <a (click)="AddFactory()" data-target="#addEditFactory" data-toggle="modal" class="cursorPointer"><i style="color:white" class="material-icons">add_circle_outline</i></a>
-                  </div>
-                  <div class="panel-body em20Div">
-                      <div class="list-group" *ngIf="factories.length > 0">
-                          <table class="table table-striped">
-                              <thead>
-                                  <tr>
-                                      <th>Sl.No.</th>
-                                      <th>Factory Name</th>
-                                      <th>Factory Location</th>
-                                      <th>Edit Factory</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr *ngFor="let fact of factories; let i=index">
-                                      <td>{{i+1}}</td>
-                                      <td>{{fact.Name}}</td>
-                                      <td>{{fact.Location}}</td>
-                                      <td>
-                                          <a (click)="EditFactory(fact)" data-target="#addEditFactory" data-toggle="modal" class="cursorPointer"><i class="material-icons">mode_edit</i></a>
-                                      </td>
-                                      <td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-xs-6">
-              <div class="panel panel-primary">
-                  <div class="panel-heading">
-                      <h3 class="panel-title col-xs-10 topMargin">Shipping Modes</h3>
-                      <a (click)="AddShippingMode()" data-target="#addShippingMode" data-toggle="modal" class="cursorPointer"><i style="color:white" class="material-icons">add_circle_outline</i></a>
-                  </div>
-                  <div class="panel-body em20Div">
-                      <div class="list-group" *ngIf="shipppingmodes.length > 0">
-                          <table class="table table-striped">
-                              <thead>
-                                  <tr>
-                                      <th>Sl.No.</th>
-                                      <th>Shipping Mode</th>
-                                      <th>Delete Mode</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr *ngFor="let mode of shipppingmodes; let i=index">
-                                      <td>{{i+1}}</td>
-                                      <td>{{mode.ShippingModeName}}</td>
-                                      <td>
-                                          <a (click)="DeleteShippingMode(mode.ShippingMode_Id)" class="cursorPointer"><i class="material-icons">delete</i></a>
-                                      </td>
-                                      <td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-xs-6">
-              <div class="panel panel-primary">
-                  <div class="panel-heading">
-                      <h3 class="panel-title col-xs-10 topMargin">Buyers</h3>
-                      <a (click)="AddBuyer()" data-target="#addEditBuyer" data-toggle="modal" class="cursorPointer"><i style="color:white" class="material-icons">add_circle_outline</i></a>
-                  </div>
-                  <div class="panel-body em20Div">
-                      <div class="list-group" *ngIf="shipppingmodes.length > 0">
-                          <table class="table table-striped">
-                              <thead>
-                                  <tr>
-                                      <th>Sl.No.</th>
-                                      <th>Buyer Name</th>
-                                      <th>Location</th>
-                                      <th>Edit Info</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr *ngFor="let byr of buyers; let i=index">
-                                      <td>{{i+1}}</td>
-                                      <td>{{byr.BuyerName}}</td>
-                                      <td>{{byr.BuyerLocation}}</td>
-                                      <td>
-                                          <a (click)="EditBuyer(byr)" data-target="#addEditBuyer" data-toggle="modal" data-class="cursorPointer"><i class="material-icons">mode_edit</i></a>
-                                      </td>
-                                      <td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- The Modal -->
-  <div class="modal fade" id="changePwd">
-      <div class="modal-dialog">
-          <div class="modal-content">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title col-xs-10">Orders</h3>
+                <a data-target="#addEditOrder" data-toggle="modal" class="cursorPointer">
+                    <i style="color:white"
+                       class="material-icons">add_circle_outline</i>
+                </a>
+            </div>
+            <div class="panel-body em10Div">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sl.No.</th>
+                            <th>Order No.</th>
+                            <th>Style No.</th>
+                            <th>Quantity</th>
+                            <th>Delivery</th>
+                            <th>Buyer Name</th>
+                            <th>Factory Name</th>
+                            <th>P.O #</th>
+                            <th>Shipping Mode</th>
+                            <th>Price FOB</th>
+                            <th>Factory Price</th>
+                            <th>Total Value</th>
+                            <th>Ship Date</th>
+                            <th>Edit Order</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let or of orders; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{or.OrderNo}}</td>
+                            <td>{{or.StyleNo}}</td>
+                            <td>{{or.Quantity}}</td>
+                            <td>{{or.Delivery | date: 'fullDate'}}</td>
+                            <td>{{or.BuyerName}}</td>
+                            <td>{{or.FactoryName}}</td>
+                            <td>{{or.PushraseOrderNo}}</td>
+                            <td>{{or.ShippingModeName}}</td>
+                            <td>{{or.PriceFOB}}</td>
+                            <td>{{or.FactoryPrice}}</td>
+                            <td>{{or.TotalValue}}</td>
+                            <td>{{or.ShipDate | date: 'fullDate'}}</td>
+                            <td>
+                                <a (click)="EditOrder(or)" data-target="#addEditOrder"
+                                   data-toggle="modal" class="cursorPointer">
+                                    <i class="material-icons">mode_edit</i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title col-xs-10 topMargin">All Available Users</h3>
+                        <a (click)="AddNewUser()" class="cursorPointer">
+                            <i style="color:white"
+                               class="material-icons">add_circle_outline</i>
+                        </a>
+                    </div>
+                    <div class="panel-body em20Div">
+                        <div class="list-group" *ngIf="users.length > 0">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Sl.No.</th>
+                                        <th>User Name</th>
+                                        <th>Delete</th>
+                                        <th>Change Pass</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let resource of users; let i=index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{resource.UserName}}</td>
+                                        <td>
+                                            <a *ngIf="!resource.IsDeleted" (click)="DeleteResource(resource.UserId)"
+                                               class="cursorPointer"><i class="material-icons">delete</i></a>
+                                        </td>
+                                        <td>
+                                            <a data-toggle="modal" data-target="#changePwd"
+                                               (click)="ChangePassword(resource)" class="cursorPointer">
+                                                <i class="material-icons">mode_edit</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title col-xs-10 topMargin">Factories</h3>
+                        <a (click)="AddFactory()" data-target="#addEditFactory" data-toggle="modal"
+                           class="cursorPointer">
+                            <i style="color:white"
+                               class="material-icons">add_circle_outline</i>
+                        </a>
+                    </div>
+                    <div class="panel-body em20Div">
+                        <div class="list-group" *ngIf="factories.length > 0">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Sl.No.</th>
+                                        <th>Factory Name</th>
+                                        <th>Factory Location</th>
+                                        <th>Edit Factory</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let fact of factories; let i=index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{fact.Name}}</td>
+                                        <td>{{fact.Location}}</td>
+                                        <td>
+                                            <a (click)="EditFactory(fact)" data-target="#addEditFactory"
+                                               data-toggle="modal" class="cursorPointer">
+                                                <i class="material-icons">mode_edit</i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title col-xs-10 topMargin">Shipping Modes</h3>
+                        <a (click)="AddShippingMode()" data-target="#addShippingMode" data-toggle="modal"
+                           class="cursorPointer">
+                            <i style="color:white"
+                               class="material-icons">add_circle_outline</i>
+                        </a>
+                    </div>
+                    <div class="panel-body em20Div">
+                        <div class="list-group" *ngIf="shipppingmodes.length > 0">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Sl.No.</th>
+                                        <th>Shipping Mode</th>
+                                        <th>Delete Mode</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let mode of shipppingmodes; let i=index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{mode.ShippingModeName}}</td>
+                                        <td>
+                                            <a (click)="DeleteShippingMode(mode.ShippingMode_Id)"
+                                               class="cursorPointer"><i class="material-icons">delete</i></a>
+                                        </td>
+                                        <td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title col-xs-10 topMargin">Buyers</h3>
+                        <a (click)="AddBuyer()" data-target="#addEditBuyer" data-toggle="modal" class="cursorPointer">
+                            <i style="color:white" class="material-icons">add_circle_outline</i>
+                        </a>
+                    </div>
+                    <div class="panel-body em20Div">
+                        <div class="list-group" *ngIf="shipppingmodes.length > 0">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Sl.No.</th>
+                                        <th>Buyer Name</th>
+                                        <th>Location</th>
+                                        <th>Edit Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let byr of buyers; let i=index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{byr.BuyerName}}</td>
+                                        <td>{{byr.BuyerLocation}}</td>
+                                        <td>
+                                            <a (click)="EditBuyer(byr)" data-target="#addEditBuyer" data-toggle="modal"
+                                               data-class="cursorPointer"><i class="material-icons">mode_edit</i></a>
+                                        </td>
+                                        <td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- The Modal -->
+    <div class="modal fade" id="changePwd">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-              <!-- Modal Header -->
-              <div class="modal-header">
-                  <h4 class="modal-title">Change Password for '{{ChangePwdUser.UserName}}'</h4>
-                  <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
-              </div>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Change Password for '{{ChangePwdUser.UserName}}'</h4>
+                    <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+                </div>
 
-              <!-- Modal body -->
-              <div class="modal-body">
-                  <h5>Enter New Password</h5>
-                  <input type="password" name="newpass" class="form-control" [(ngModel)]="newPassword" />
-                  <h5>Repeat New Password</h5>
-                  <input type="password" name="newpassrepeat" class="form-control" [(ngModel)]="newPasswordRepeat" />
-              </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h5>Enter New Password</h5>
+                    <input type="password" name="newpass" class="form-control" [(ngModel)]="newPassword" />
+                    <h5>Repeat New Password</h5>
+                    <input type="password" name="newpassrepeat" class="form-control" [(ngModel)]="newPasswordRepeat" />
+                </div>
 
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-primary cursorPointer" (click)="ChangePwd()">Send</button>
-                  <button type="button" class="btn btn-danger cursorPointer" (click)="hideModal()">Close</button>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary cursorPointer" (click)="ChangePwd()">Send</button>
+                    <button type="button" class="btn btn-danger cursorPointer" (click)="hideModal()">Close</button>
 
-                  <!-- this button is hidden, used to close from typescript -->
-                  <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
-              </div>
-          </div>
-      </div>
-  </div>
+                    <!-- this button is hidden, used to close from typescript -->
+                    <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="modal fade" id="addUser">
-      <div class="modal-dialog">
-          <div class="modal-content">
+    <div class="modal fade" id="addUser">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-              <!-- Modal Header -->
-              <div class="modal-header">
-                  <h4 class="modal-title">Add New User</h4>
-                  <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
-              </div>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add New User</h4>
+                    <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+                </div>
 
-              <!-- Modal body -->
-              <div class="modal-body">
-                  <h5>Enter New Password UserName</h5>
-                  <input type="text" name="newuseruname" class="form-control" [(ngModel)]="AddNewUserData.UserName" />
-                  <h5>Enter Password</h5>
-                  <input type="password" name="newuserpass" class="form-control" [(ngModel)]="AddNewUserData.Password" />
-                  <h5>Is Administrator</h5>
-                  <input type="checkbox" [checked]="AddNewUserData.IsAdmin" (change)="AddNewUserData.IsAdmin = !AddNewUserData.IsAdmin"/>
-              </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h5>Enter New Password UserName</h5>
+                    <input type="text" name="newuseruname" class="form-control" [(ngModel)]="AddNewUserData.UserName" />
+                    <h5>Enter Password</h5>
+                    <input type="password" name="newuserpass" class="form-control"
+                           [(ngModel)]="AddNewUserData.Password" />
+                    <h5>Is Administrator</h5>
+                    <input type="checkbox" [checked]="AddNewUserData.IsAdmin"
+                           (change)="AddNewUserData.IsAdmin = !AddNewUserData.IsAdmin" />
+                </div>
 
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-primary cursorPointer" (click)="AddNewUserToServer()">Send</button>
-                  <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary cursorPointer"
+                            (click)="AddNewUserToServer()">
+                        Send
+                    </button>
+                    <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
 
-                  <!-- this button is hidden, used to close from typescript -->
-                  <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
-              </div>
-          </div>
-      </div>
-  </div>
+                    <!-- this button is hidden, used to close from typescript -->
+                    <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="modal fade" id="addEditFactory">
-      <div class="modal-dialog">
-          <div class="modal-content">
+    <div class="modal fade" id="addEditFactory">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-              <!-- Modal Header -->
-              <div class="modal-header">
-                  <h4 class="modal-title">Add/Edit Factory</h4>
-                  <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
-              </div>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add/Edit Factory</h4>
+                    <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+                </div>
 
-              <!-- Modal body -->
-              <div class="modal-body">
-                  <h5>Enter Factory Name</h5>
-                  <input type="text" name="fanem" class="form-control" [(ngModel)]="FactoryEditData.Name" />
-                  <h5>Enter Factory Location</h5>
-                  <input type="text" name="flocation" class="form-control" [(ngModel)]="FactoryEditData.Location" />
-              </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h5>Enter Factory Name</h5>
+                    <input type="text" name="fanem" class="form-control" [(ngModel)]="FactoryEditData.Name" />
+                    <h5>Enter Factory Location</h5>
+                    <input type="text" name="flocation" class="form-control" [(ngModel)]="FactoryEditData.Location" />
+                </div>
 
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-primary cursorPointer" (click)="EditAddFactoryToServer()">Send</button>
-                  <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary cursorPointer"
+                            (click)="EditAddFactoryToServer()">
+                        Send
+                    </button>
+                    <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
 
-                  <!-- this button is hidden, used to close from typescript -->
-                  <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
-              </div>
-          </div>
-      </div>
-  </div>
-  <div class="modal fade" id="addShippingMode">
-      <div class="modal-dialog">
-          <div class="modal-content">
+                    <!-- this button is hidden, used to close from typescript -->
+                    <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addShippingMode">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-              <!-- Modal Header -->
-              <div class="modal-header">
-                  <h4 class="modal-title">Add Shipping Mode</h4>
-                  <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
-              </div>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Shipping Mode</h4>
+                    <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+                </div>
 
-              <!-- Modal body -->
-              <div class="modal-body">
-                  <h5>Enter Shipping Mode Name</h5>
-                  <input type="text" name="mode" class="form-control" [(ngModel)]="NewShippingMode.ShippingModeName" />
-              </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h5>Enter Shipping Mode Name</h5>
+                    <input type="text" name="mode" class="form-control"
+                           [(ngModel)]="NewShippingMode.ShippingModeName" />
+                </div>
 
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-primary cursorPointer" (click)="AddShippingModeToServer()">Send</button>
-                  <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary cursorPointer"
+                            (click)="AddShippingModeToServer()">
+                        Send
+                    </button>
+                    <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
 
-                  <!-- this button is hidden, used to close from typescript -->
-                  <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
-              </div>
-          </div>
-      </div>
-  </div>
+                    <!-- this button is hidden, used to close from typescript -->
+                    <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="modal fade" id="addEditBuyer">
-      <div class="modal-dialog">
-          <div class="modal-content">
+    <div class="modal fade" id="addEditBuyer">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-              <!-- Modal Header -->
-              <div class="modal-header">
-                  <h4 class="modal-title">Add/Edit Buyer</h4>
-                  <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
-              </div>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add/Edit Buyer</h4>
+                    <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+                </div>
 
-              <!-- Modal body -->
-              <div class="modal-body">
-                  <h5>Enter Buyer Name</h5>
-                  <input type="text" name="fanem" class="form-control" [(ngModel)]="BuyerEditData.BuyerName" />
-                  <h5>Enter Buyer Location</h5>
-                  <input type="text" name="flocation" class="form-control" [(ngModel)]="BuyerEditData.BuyerLocation" />
-              </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h5>Enter Buyer Name</h5>
+                    <input type="text" name="fanem" class="form-control" [(ngModel)]="BuyerEditData.BuyerName" />
+                    <h5>Enter Buyer Location</h5>
+                    <input type="text" name="flocation" class="form-control"
+                           [(ngModel)]="BuyerEditData.BuyerLocation" />
+                </div>
 
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-primary cursorPointer" (click)="EditAddBuyerToServer()">Send</button>
-                  <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary cursorPointer"
+                            (click)="EditAddBuyerToServer()">
+                        Send
+                    </button>
+                    <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
 
-                  <!-- this button is hidden, used to close from typescript -->
-                  <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
-              </div>
-          </div>
-      </div>
-  </div>
+                    <!-- this button is hidden, used to close from typescript -->
+                    <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addEditOrder">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add/Edit Buyer</h4>
+                    <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h5>Enter Order Number</h5>
+                    <input type="text" name="ono" class="form-control" [(ngModel)]="NewOrder.Order_No" />
+                    <h5>Enter Style Number</h5>
+                    <input type="text" name="styleNo" class="form-control" [(ngModel)]="NewOrder.Style_No" />
+                    <h5>Enter Quantity</h5>
+                    <input type="number" name="quantity" class="form-control" [(ngModel)]="NewOrder.Quantity" />
+                    <h5>Enter Delivery date</h5>
+                    <input type="date" name="deliverydate" class="form-control" [ngModel]="NewOrder.Delivery | date:'yyyy-MM-dd'" (ngModelChange)="NewOrder.Delivery = $event" />
+                    <h5>Select Factory</h5>
+                    <select class="form-control" [(ngModel)]="NewOrder.Factory_Id">
+                        <option *ngFor="let fct of factories" value={{fct.Factory_Id}}>
+                            {{fct.Name}}
+                        </option>
+                    </select>
+                    <h5>Enter PO Number</h5>
+                    <input type="text" name="PONumber" class="form-control" [(ngModel)]="NewOrder.Purchase_Order_No" />
+                    <h5>Select Shipping Mode</h5>
+                    <select class="form-control" [(ngModel)]="NewOrder.ShippingMode_Id">
+                        <option *ngFor="let sm of shipppingmodes" value={{sm.ShippingMode_Id}}>
+                            {{sm.ShippingModeName}}
+                        </option>
+                    </select>
+                    <h5>Select Buyer</h5>
+                    <select class="form-control" [(ngModel)]="NewOrder.BuyerId">
+                        <option *ngFor="let b of buyers" value={{b.BuyerId}}>
+                            {{b.BuyerName}}
+                        </option>
+                    </select>
+                    <h5>Enter Price FOB</h5>
+                    <input type="number" step="any" name="FOBPrice" class="form-control"
+                           [(ngModel)]="NewOrder.Price_FOB" />
+                    <h5>Enter Factory Price</h5>
+                    <input type="number" step="any" name="FactoryPrice" class="form-control"
+                           [(ngModel)]="NewOrder.Factory_Price" />
+                    <h5>Total Value</h5>
+                    <textarea style="resize:none" rows="1" disabled class="form-control">
+                    {{(NewOrder.Price_FOB + NewOrder.Factory_Price) * NewOrder.Quantity}}
+                    </textarea>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary cursorPointer" (click)="AddEditOrder()">Send</button>
+                    <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
+
+                    <!-- this button is hidden, used to close from typescript -->
+                    <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

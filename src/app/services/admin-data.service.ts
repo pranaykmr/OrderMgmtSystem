@@ -91,4 +91,19 @@ export class AdminDataService {
         let options = { headers: headers };
         return this._httpClient.put<void>(`${this.apiUrl}/Buyers/${newBuyer.BuyerId}`,newBuyer);
   }
+
+  AddNewOrder(newOrder: Order): Observable<boolean> {
+    let headers = new HttpHeaders();
+        headers.append('Content-Type','application/json');
+        let options = { headers: headers };
+        return this._httpClient.post<boolean>(`${this.apiUrl}/Orders`, newOrder, options);
+  }
+
+  EditOrder(newOrder: Order): Observable<void> {
+    //return this._httpClient.get<Boolean>(`${this.apiUrl}/login/UpdatePassword?newPassword=`);
+    let headers = new HttpHeaders();
+        headers.append('Content-Type','application/json');
+        let options = { headers: headers };
+        return this._httpClient.put<void>(`${this.apiUrl}/Orders/${newOrder.Order_No}`,newOrder);
+  }
 }

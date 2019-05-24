@@ -9,7 +9,7 @@ export class Order{
         this.ShippingMode_Id = null;
         this.Price_FOB = null;
         this.Factory_Price = null;
-        this.Total_Value = false;
+        this.Total_Value = 0;
         this.Ship_Date = null;
         this.BuyerId = "";
     }
@@ -22,7 +22,7 @@ export class Order{
     public ShippingMode_Id : string;
     public Price_FOB : any;
     public Factory_Price : any;
-    public Total_Value : any;
+    public Total_Value : Number;
     public Ship_Date : Date;
     public BuyerId : string;
 }

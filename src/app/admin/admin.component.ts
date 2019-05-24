@@ -9,17 +9,19 @@ import { ShippingMode } from '../models/ShippingMode';
 import { SecurityService } from '../services/security.service';
 import { Guid } from "guid-typescript";
 import { OrderInfo } from '../models/OrderInfo';
+import { DatePipe } from '@angular/common';
 //import * as $ from 'jquery';
 //import 'bootstrap';
 //declare var $ : any;
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  styleUrls: ['./admin.component.css'],
+  providers:[DatePipe]
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private spinner: NgxSpinnerService, private _adminDataService: AdminDataService, private _securityService: SecurityService) { }
+  constructor(private spinner: NgxSpinnerService, private _adminDataService: AdminDataService, private _securityService: SecurityService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.orders = new Array<OrderInfo>();
@@ -34,6 +36,7 @@ export class AdminComponent implements OnInit {
     this.FactoryEditData = new Factory();
     this.NewShippingMode = new ShippingMode();
     this.BuyerEditData = new Buyer();
+    this.NewOrder = new Order();
     this.GetUsers();
     this.GetOrders();
     this.GetBuyers();
@@ -53,6 +56,7 @@ export class AdminComponent implements OnInit {
   public FactoryEditData: Factory;
   public NewShippingMode: ShippingMode;
   public BuyerEditData: Buyer;
+  public NewOrder: Order;
 
   GetOrders() {
     this._adminDataService.GetOrders().subscribe(
@@ -271,5 +275,52 @@ export class AdminComponent implements OnInit {
           $("#addEditBuyer").modal('hide');
         })
     }
+  }
+
+  AddEditOrder() {
+    if (this.orders.some((item) => item.OrderNo == this.NewOrder.Order_No)) {
+      this._adminDataService.EditOrder(this.NewOrder).subscribe((data: any) => {
+        this.NewOrder = new Order();
+        this.GetOrders();
+        $("#addEditOrder").modal('hide');
+      },
+        (error: any) => {
+          console.log(error);
+          this.spinner.hide();
+          $("#addEditOrder").modal('hide');
+        })
+    }
+    else {
+      this._adminDataService.AddNewOrder(this.NewOrder).subscribe((data: boolean) => {
+        this.NewOrder = new Order();
+        this.GetOrders();
+        $("#addEditOrder").modal('hide');
+      },
+        (error: any) => {
+          console.log(error);
+          this.spinner.hide();
+          $("#addEditOrder").modal('hide');
+        })
+    }
+  }
+
+  EditOrder(orderdata: OrderInfo) {
+    this.NewOrder.Order_No = orderdata.OrderNo;
+    this.NewOrder.Style_No = orderdata.StyleNo;
+    this.NewOrder.BuyerId = orderdata.BuyerId;
+    this.NewOrder.Delivery = orderdata.Delivery;
+    this.NewOrder.Factory_Id = orderdata.FactoryId;
+    this.NewOrder.Factory_Price = orderdata.FactoryPrice;
+    this.NewOrder.Price_FOB = orderdata.PriceFOB;
+    this.NewOrder.Purchase_Order_No = orderdata.PushraseOrderNo;
+    this.NewOrder.Quantity = orderdata.Quantity;
+    this.NewOrder.Ship_Date = orderdata.ShipDate;
+    this.NewOrder.ShippingMode_Id = orderdata.ShippingModeId;
+    this.NewOrder.Style_No = orderdata.StyleNo;
+    this.NewOrder.Total_Value = orderdata.TotalValue;
+  }
+
+  GetDateString(newdate : Date){
+    this.datePipe.transform(newdate,"yyyy-MM-dd");
   }
 }
