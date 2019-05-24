@@ -1,0 +1,35 @@
+
+export class OrderInfo {
+    constructor() {
+        this.OrderNo = 0;
+        this.StyleNo = "";
+        this.Quantity = 0;
+        this.Delivery = null;
+        this.FactoryId = "";
+        this.FactoryName = "";
+        this.PushraseOrderNo = 0;
+        this.ShippingModeId = "";
+        this.ShippingModeName = "";
+        this.PriceFOB = null;
+        this.FactoryPrice = null;
+        this.TotalValue = null;
+        this.ShipDate = null;
+        this.BuyerId = "";
+        this.BuyerName = "";
+    }
+    public OrderNo: number;
+    public StyleNo: string;
+    public Quantity: number;
+    public Delivery: Date;
+    public FactoryId: string;
+    public FactoryName: string;
+    public PushraseOrderNo: number;
+    public ShippingModeId: string;
+    public ShippingModeName: string;
+    public PriceFOB: number;
+    public FactoryPrice: number;
+    public TotalValue: number;
+    public ShipDate: Date;
+    public BuyerId: string;
+    public BuyerName: string;
+}

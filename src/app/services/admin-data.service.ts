@@ -8,6 +8,7 @@ import { Buyer } from '../models/Buyer';
 import { Factory } from '../models/Factory';
 import { Users } from '../models/Users';
 import { ShippingMode } from '../models/ShippingMode';
+import { OrderInfo } from '../models/OrderInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class AdminDataService {
   apiUrl: string = 'http://localhost:28687/api';
   constructor(private _httpClient: HttpClient, private _securityService: SecurityService) { }
 
-  GetOrders(): Observable<Order[]> {
-    return this._httpClient.get<Order[]>(`${this.apiUrl}/Orders`);
+  GetOrders(): Observable<OrderInfo[]> {
+    return this._httpClient.get<OrderInfo[]>(`${this.apiUrl}/OrderInfo/GetOrderInfo?token=` + this._securityService.GetUserToken());
   }
 
   GetBuyers(): Observable<Buyer[]> {
@@ -50,5 +51,44 @@ export class AdminDataService {
         headers.append('Content-Type','application/json');
         let options = { headers: headers };
         return this._httpClient.post<void>(`${this.apiUrl}/Security_User`, newUser, options);
+  }
+
+  AddFactory(newFactory: Factory): Observable<boolean> {
+    //return this._httpClient.get<Boolean>(`${this.apiUrl}/login/UpdatePassword?newPassword=`);
+    let headers = new HttpHeaders();
+        headers.append('Content-Type','application/json');
+        let options = { headers: headers };
+        return this._httpClient.post<boolean>(`${this.apiUrl}/Factories`, newFactory, options);
+  }
+
+  EditFactory(newFactory: Factory): Observable<void> {
+    //return this._httpClient.get<Boolean>(`${this.apiUrl}/login/UpdatePassword?newPassword=`);
+    let headers = new HttpHeaders();
+        headers.append('Content-Type','application/json');
+        let options = { headers: headers };
+        return this._httpClient.put<void>(`${this.apiUrl}/Factories/${newFactory.Factory_Id}`,newFactory);
+  }
+
+  AddShippingMode(newShippingMode: ShippingMode): Observable<boolean> {
+    let headers = new HttpHeaders();
+        headers.append('Content-Type','application/json');
+        let options = { headers: headers };
+        return this._httpClient.post<boolean>(`${this.apiUrl}/ShippingModes`, newShippingMode, options);
+  }
+
+
+  AddNewBuyer(newBuyer: Buyer): Observable<boolean> {
+    let headers = new HttpHeaders();
+        headers.append('Content-Type','application/json');
+        let options = { headers: headers };
+        return this._httpClient.post<boolean>(`${this.apiUrl}/Buyers`, newBuyer, options);
+  }
+
+  EditBuyer(newBuyer: Buyer): Observable<void> {
+    //return this._httpClient.get<Boolean>(`${this.apiUrl}/login/UpdatePassword?newPassword=`);
+    let headers = new HttpHeaders();
+        headers.append('Content-Type','application/json');
+        let options = { headers: headers };
+        return this._httpClient.put<void>(`${this.apiUrl}/Buyers/${newBuyer.BuyerId}`,newBuyer);
   }
 }

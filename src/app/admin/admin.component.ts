@@ -8,6 +8,7 @@ import { Users } from '../models/Users';
 import { ShippingMode } from '../models/ShippingMode';
 import { SecurityService } from '../services/security.service';
 import { Guid } from "guid-typescript";
+import { OrderInfo } from '../models/OrderInfo';
 //import * as $ from 'jquery';
 //import 'bootstrap';
 //declare var $ : any;
@@ -21,7 +22,7 @@ export class AdminComponent implements OnInit {
   constructor(private spinner: NgxSpinnerService, private _adminDataService: AdminDataService, private _securityService: SecurityService) { }
 
   ngOnInit() {
-    this.orders = new Array<Order>();
+    this.orders = new Array<OrderInfo>();
     this.buyers = new Array<Buyer>();
     this.factories = new Array<Factory>();
     this.users = new Array<Users>();
@@ -40,7 +41,7 @@ export class AdminComponent implements OnInit {
     this.GetShippingModes();
   }
 
-  public orders: Order[];
+  public orders: OrderInfo[];
   public buyers: Buyer[];
   public factories: Factory[];
   public users: Users[];
@@ -55,7 +56,7 @@ export class AdminComponent implements OnInit {
 
   GetOrders() {
     this._adminDataService.GetOrders().subscribe(
-      (data: Order[]) => {
+      (data: OrderInfo[]) => {
         this.orders = data;
       },
       (error: any) => {
@@ -130,7 +131,36 @@ export class AdminComponent implements OnInit {
   }
 
   EditAddFactoryToServer() {
-
+    if (this.FactoryEditData.Factory_Id == "") {
+      this.FactoryEditData.Factory_Id = Guid.create().toString();
+      this._adminDataService.AddFactory(this.FactoryEditData).subscribe(
+        (data: boolean) => {
+          if (data)
+            this.GetFactory();
+          this.FactoryEditData = new Factory();
+          $("#addEditFactory").modal('hide');
+        },
+        (error: any) => {
+          console.log(error);
+          this.FactoryEditData = new Factory();
+          $("#addEditFactory").modal('hide');
+        }
+      );
+    }
+    else {
+      this._adminDataService.EditFactory(this.FactoryEditData).subscribe(
+        (data: void) => {
+          this.GetFactory();
+          this.FactoryEditData = new Factory();
+          $("#addEditFactory").modal('hide');
+        },
+        (error: any) => {
+          console.log(error);
+          this.FactoryEditData = new Factory();
+          $("#addEditFactory").modal('hide');
+        }
+      );
+    }
   }
 
   AddFactory() {
@@ -196,5 +226,50 @@ export class AdminComponent implements OnInit {
   AddBuyer() {
     this.BuyerEditData = new Buyer();
   }
-  
+
+  AddShippingMode() {
+    this.NewShippingMode = new ShippingMode();
+  }
+
+  AddShippingModeToServer() {
+    this.NewShippingMode.ShippingMode_Id = Guid.create().toString();
+    this._adminDataService.AddShippingMode(this.NewShippingMode).subscribe((data: boolean) => {
+      this.NewShippingMode = new ShippingMode();
+      this.GetShippingModes();
+      $("#addShippingMode").modal('hide');
+    },
+      (error: any) => {
+        console.log(error);
+        this.spinner.hide();
+        $("#addShippingMode").modal('hide');
+      })
+  }
+
+  EditAddBuyerToServer() {
+    if (this.BuyerEditData.BuyerId == "") {
+      this.BuyerEditData.BuyerId = Guid.create().toString();
+      this._adminDataService.AddNewBuyer(this.BuyerEditData).subscribe((data: boolean) => {
+        this.BuyerEditData = new Buyer();
+        this.GetBuyers();
+        $("#addEditBuyer").modal('hide');
+      },
+        (error: any) => {
+          console.log(error);
+          this.spinner.hide();
+          $("#addEditBuyer").modal('hide');
+        })
+    }
+    else {
+      this._adminDataService.EditBuyer(this.BuyerEditData).subscribe((data: void) => {
+        this.BuyerEditData = new Buyer();
+        this.GetBuyers();
+        $("#addEditBuyer").modal('hide');
+      },
+        (error: any) => {
+          console.log(error);
+          this.spinner.hide();
+          $("#addEditBuyer").modal('hide');
+        })
+    }
+  }
 }

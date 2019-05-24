@@ -9,19 +9,35 @@
                   <thead>
                       <tr>
                           <th>Sl.No.</th>
-                          <th>Resource Name</th>
-                          <th>Consumer Name</th>
-                          <th>Picked-Up</th>
-                          <th>Days Passed</th>
+                          <th>Order No.</th>
+                          <th>Style No.</th>
+                          <th>Quantity</th>
+                          <th>Delivery</th>
+                          <th>Buyer Name</th>
+                          <th>Factory Name</th>
+                          <th>P.O #</th>
+                          <th>Shipping Mode</th>
+                          <th>Price FOB</th>
+                          <th>Factory Price</th>
+                          <th>Total Value</th>
+                          <th>Ship Date</th>
                       </tr>
                   </thead>
                   <tbody>
-                      <tr *ngFor="let cnsmdRes of otherUsersCnsmdRes; let i=index">
+                      <tr *ngFor="let or of orders; let i=index">
                           <td>{{i+1}}</td>
-                          <td>{{cnsmdRes.ResourceName}}</td>
-                          <td>{{cnsmdRes.ConsumerName}}</td>
-                          <td>{{cnsmdRes.PickUpDateTime | date: 'medium'}}</td>
-                          <td>{{cnsmdRes.NoOfDays}}</td>
+                          <td>{{or.OrderNo}}</td>
+                          <td>{{or.StyleNo}}</td>
+                          <td>{{or.Quantity}}</td>
+                          <td>{{or.Delivery | date: 'medium'}}</td>
+                          <td>{{or.BuyerName}}</td>
+                          <td>{{or.FactoryName}}</td>
+                          <td>{{or.PushraseOrderNo}}</td>
+                          <td>{{or.ShippingModeName}}</td>
+                          <td>{{or.PriceFOB}}</td>
+                          <td>{{or.FactoryPrice}}</td>
+                          <td>{{or.TotalValue}}</td>
+                          <td>{{or.ShipDate | date: 'medium'}}</td>
                       </tr>
                   </tbody>
               </table>
@@ -268,12 +284,12 @@
               <!-- Modal body -->
               <div class="modal-body">
                   <h5>Enter Shipping Mode Name</h5>
-                  <input type="text" name="fanem" class="form-control" [(ngModel)]="FactoryEditData.Name" />
+                  <input type="text" name="mode" class="form-control" [(ngModel)]="NewShippingMode.ShippingModeName" />
               </div>
 
               <!-- Modal footer -->
               <div class="modal-footer">
-                  <button type="button" class="btn btn-primary cursorPointer" (click)="AddBuyerToServer()">Send</button>
+                  <button type="button" class="btn btn-primary cursorPointer" (click)="AddShippingModeToServer()">Send</button>
                   <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
 
                   <!-- this button is hidden, used to close from typescript -->
