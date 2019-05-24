@@ -1,11 +1,11 @@
 export class Order{
     constructor(){
-        this.Order_No = 0;
+        this.Order_No = null;
         this.Style_No = "";
         this.Quantity = 0;
         this.Delivery = null;
         this.Factory_Id = "";
-        this.Purchase_Order_No = 0;
+        this.Purchase_Order_No = null;
         this.ShippingMode_Id = null;
         this.Price_FOB = null;
         this.Factory_Price = null;
@@ -13,12 +13,12 @@ export class Order{
         this.Ship_Date = null;
         this.BuyerId = "";
     }
-    public Order_No : Number;
+    public Order_No : string;
     public Style_No : string;
     public Quantity : Number;
     public Delivery : Date;
     public Factory_Id : string;
-    public Purchase_Order_No : Number;
+    public Purchase_Order_No : string;
     public ShippingMode_Id : string;
     public Price_FOB : any;
     public Factory_Price : any;

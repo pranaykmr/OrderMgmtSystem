@@ -1,13 +1,13 @@
 
 export class OrderInfo {
     constructor() {
-        this.OrderNo = 0;
+        this.OrderNo = null;
         this.StyleNo = "";
         this.Quantity = 0;
         this.Delivery = null;
         this.FactoryId = "";
         this.FactoryName = "";
-        this.PushraseOrderNo = 0;
+        this.PushraseOrderNo = null;
         this.ShippingModeId = "";
         this.ShippingModeName = "";
         this.PriceFOB = null;
@@ -17,13 +17,13 @@ export class OrderInfo {
         this.BuyerId = "";
         this.BuyerName = "";
     }
-    public OrderNo: number;
+    public OrderNo: string;
     public StyleNo: string;
     public Quantity: number;
     public Delivery: Date;
     public FactoryId: string;
     public FactoryName: string;
-    public PushraseOrderNo: number;
+    public PushraseOrderNo: string;
     public ShippingModeId: string;
     public ShippingModeName: string;
     public PriceFOB: number;
