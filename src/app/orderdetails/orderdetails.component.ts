@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AdminDataService } from '../services/admin-data.service';
+import { OrderInfo } from '../models/OrderInfo';
+import { Order } from '../models/Order';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Buyer } from '../models/Buyer';
+import { Factory } from '../models/Factory';
+import { ShippingMode } from '../models/ShippingMode';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-orderdetails',
@@ -6,10 +14,134 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./orderdetails.component.css']
 })
 export class OrderdetailsComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor() { }
+  constructor(private _adminDataService: AdminDataService, private spinner: NgxSpinnerService) { }
+  public dataSource = new MatTableDataSource<OrderInfo>();
 
   ngOnInit() {
+    this.spinner.show();
+    this.GetOrders();
+    this.orders = new Array<OrderInfo>();
+    this.buyers = new Array<Buyer>();
+    this.NewOrder = new Order();
+    this.factories = new Array<Factory>();
+    this.shipppingmodes = new Array<ShippingMode>();
+    this.GetBuyers();
+    this.GetFactory();
+    this.GetShippingModes();
+    this.isOrderEdit = true;;
+    this.SelectedOrderBy = "TotalValue";
+    this.dataSource.paginator = this.paginator;
+  }
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+  public orders: OrderInfo[];
+  public NewOrder: Order;
+  public buyers: Buyer[];;
+  public factories: Factory[];
+  public shipppingmodes: ShippingMode[];
+  public isOrderEdit: boolean;
+  public displayedColumns : string[] = ["OrderNo", "StyleNo", "Quantity",
+    "Delivery", "BuyerName", "FactoryName", "PushraseOrderNo", "ShippingModeName", "PriceFOB",
+    "FactoryPrice", "TotalValue", "ShipDate", "update"];
+  public SelectedOrderBy: string;
+
+  GetOrders() {
+    this._adminDataService.GetOrders().subscribe(
+      (data: OrderInfo[]) => {
+        this.orders = data;
+        this.dataSource.data = data as OrderInfo[];
+        this.spinner.hide();
+      },
+      (error: any) => {
+        console.log(error);
+        this.spinner.hide();
+      }
+    )
   }
 
+  AddEditOrder() {
+    if (this.orders.some((item) => item.OrderNo == this.NewOrder.Order_No)) {
+      this._adminDataService.EditOrder(this.NewOrder).subscribe((data: any) => {
+        this.NewOrder = new Order();
+        this.GetOrders();
+        $("#addEditOrder").modal('hide');
+      },
+        (error: any) => {
+          console.log(error);
+          this.spinner.hide();
+          $("#addEditOrder").modal('hide');
+        })
+    }
+    else {
+      this._adminDataService.AddNewOrder(this.NewOrder).subscribe((data: boolean) => {
+        this.NewOrder = new Order();
+        this.GetOrders();
+        $("#addEditOrder").modal('hide');
+      },
+        (error: any) => {
+          console.log(error);
+          this.spinner.hide();
+          $("#addEditOrder").modal('hide');
+        })
+    }
+  }
+
+  EditOrder(orderdata: OrderInfo) {
+    this.isOrderEdit = true;
+    this.NewOrder.Order_No = orderdata.OrderNo;
+    this.NewOrder.Style_No = orderdata.StyleNo;
+    this.NewOrder.BuyerId = orderdata.BuyerId;
+    this.NewOrder.Delivery = orderdata.Delivery;
+    this.NewOrder.Factory_Id = orderdata.FactoryId;
+    this.NewOrder.Factory_Price = orderdata.FactoryPrice;
+    this.NewOrder.Price_FOB = orderdata.PriceFOB;
+    this.NewOrder.Purchase_Order_No = orderdata.PushraseOrderNo;
+    this.NewOrder.Quantity = orderdata.Quantity;
+    this.NewOrder.Ship_Date = orderdata.ShipDate;
+    this.NewOrder.ShippingMode_Id = orderdata.ShippingModeId;
+    this.NewOrder.Style_No = orderdata.StyleNo;
+    this.NewOrder.Total_Value = orderdata.TotalValue;
+  }
+
+  AddOrder() {
+    this.NewOrder = new Order();
+    this.isOrderEdit = false;
+  }
+
+  GetBuyers() {
+    this._adminDataService.GetBuyers().subscribe(
+      (data: Buyer[]) => {
+        this.buyers = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
+  }
+
+  GetFactory() {
+    this._adminDataService.GetFactory().subscribe(
+      (data: Factory[]) => {
+        this.factories = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
+  }
+
+  GetShippingModes() {
+    this._adminDataService.GetShippingModes().subscribe(
+      (data: ShippingMode[]) => {
+        this.shipppingmodes = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
+  }
 }

@@ -1,0 +1,33 @@
+.rowDropdown {
+    width: 200px;
+    float: right;
+}
+
+table {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-width: 500px;
+}
+
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px;
+}
+
+:host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+}
+
+.cursorPointer{
+    cursor: pointer;
+}
+
+.topMargin{
+    margin-top:4px;
+}
+
+.mat-header-cell{
+    font-size:medium;
+}

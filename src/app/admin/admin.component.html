@@ -3,9 +3,8 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title col-xs-10 topMargin">Orders</h3>
-                <a data-target="#addEditOrder" data-toggle="modal" class="cursorPointer">
-                    <i style="color:white"
-                       class="material-icons">add_circle_outline</i>
+                <a data-target="#addEditOrder" data-toggle="modal" (click)="AddOrder()" class="cursorPointer">
+                    <i style="color:white" class="material-icons">add_circle_outline</i>
                 </a>
             </div>
             <div class="panel-body em25Div">
@@ -44,8 +43,8 @@
                             <td>{{or.TotalValue}}</td>
                             <td>{{or.ShipDate | date: 'fullDate'}}</td>
                             <td>
-                                <a (click)="EditOrder(or)" data-target="#addEditOrder"
-                                   data-toggle="modal" class="cursorPointer">
+                                <a (click)="EditOrder(or)" data-target="#addEditOrder" data-toggle="modal"
+                                    class="cursorPointer">
                                     <i class="material-icons">mode_edit</i>
                                 </a>
                             </td>
@@ -60,8 +59,7 @@
                     <div class="panel-heading">
                         <h3 class="panel-title col-xs-10 topMargin">All Available Users</h3>
                         <a (click)="AddNewUser()" class="cursorPointer">
-                            <i style="color:white"
-                               class="material-icons">add_circle_outline</i>
+                            <i style="color:white" class="material-icons">add_circle_outline</i>
                         </a>
                     </div>
                     <div class="panel-body em20Div">
@@ -81,11 +79,11 @@
                                         <td>{{resource.UserName}}</td>
                                         <td>
                                             <a *ngIf="!resource.IsDeleted" (click)="DeleteResource(resource.UserId)"
-                                               class="cursorPointer"><i class="material-icons">delete</i></a>
+                                                class="cursorPointer"><i class="material-icons">delete</i></a>
                                         </td>
                                         <td>
                                             <a data-toggle="modal" data-target="#changePwd"
-                                               (click)="ChangePassword(resource)" class="cursorPointer">
+                                                (click)="ChangePassword(resource)" class="cursorPointer">
                                                 <i class="material-icons">mode_edit</i>
                                             </a>
                                         </td>
@@ -101,9 +99,8 @@
                     <div class="panel-heading">
                         <h3 class="panel-title col-xs-10 topMargin">Factories</h3>
                         <a (click)="AddFactory()" data-target="#addEditFactory" data-toggle="modal"
-                           class="cursorPointer">
-                            <i style="color:white"
-                               class="material-icons">add_circle_outline</i>
+                            class="cursorPointer">
+                            <i style="color:white" class="material-icons">add_circle_outline</i>
                         </a>
                     </div>
                     <div class="panel-body em20Div">
@@ -124,7 +121,7 @@
                                         <td>{{fact.Location}}</td>
                                         <td>
                                             <a (click)="EditFactory(fact)" data-target="#addEditFactory"
-                                               data-toggle="modal" class="cursorPointer">
+                                                data-toggle="modal" class="cursorPointer">
                                                 <i class="material-icons">mode_edit</i>
                                             </a>
                                         </td>
@@ -141,9 +138,8 @@
                     <div class="panel-heading">
                         <h3 class="panel-title col-xs-10 topMargin">Shipping Modes</h3>
                         <a (click)="AddShippingMode()" data-target="#addShippingMode" data-toggle="modal"
-                           class="cursorPointer">
-                            <i style="color:white"
-                               class="material-icons">add_circle_outline</i>
+                            class="cursorPointer">
+                            <i style="color:white" class="material-icons">add_circle_outline</i>
                         </a>
                     </div>
                     <div class="panel-body em20Div">
@@ -197,7 +193,7 @@
                                         <td>{{byr.BuyerLocation}}</td>
                                         <td>
                                             <a (click)="EditBuyer(byr)" data-target="#addEditBuyer" data-toggle="modal"
-                                               data-class="cursorPointer"><i class="material-icons">mode_edit</i></a>
+                                                data-class="cursorPointer"><i class="material-icons">mode_edit</i></a>
                                         </td>
                                         <td>
                                     </tr>
@@ -256,16 +252,15 @@
                     <input type="text" name="newuseruname" class="form-control" [(ngModel)]="AddNewUserData.UserName" />
                     <h5>Enter Password</h5>
                     <input type="password" name="newuserpass" class="form-control"
-                           [(ngModel)]="AddNewUserData.Password" />
+                        [(ngModel)]="AddNewUserData.Password" />
                     <h5>Is Administrator</h5>
                     <input type="checkbox" [checked]="AddNewUserData.IsAdmin"
-                           (change)="AddNewUserData.IsAdmin = !AddNewUserData.IsAdmin" />
+                        (change)="AddNewUserData.IsAdmin = !AddNewUserData.IsAdmin" />
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary cursorPointer"
-                            (click)="AddNewUserToServer()">
+                    <button type="button" class="btn btn-primary cursorPointer" (click)="AddNewUserToServer()">
                         Send
                     </button>
                     <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
@@ -297,8 +292,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary cursorPointer"
-                            (click)="EditAddFactoryToServer()">
+                    <button type="button" class="btn btn-primary cursorPointer" (click)="EditAddFactoryToServer()">
                         Send
                     </button>
                     <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
@@ -323,13 +317,12 @@
                 <div class="modal-body">
                     <h5>Enter Shipping Mode Name</h5>
                     <input type="text" name="mode" class="form-control"
-                           [(ngModel)]="NewShippingMode.ShippingModeName" />
+                        [(ngModel)]="NewShippingMode.ShippingModeName" />
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary cursorPointer"
-                            (click)="AddShippingModeToServer()">
+                    <button type="button" class="btn btn-primary cursorPointer" (click)="AddShippingModeToServer()">
                         Send
                     </button>
                     <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
@@ -357,13 +350,12 @@
                     <input type="text" name="fanem" class="form-control" [(ngModel)]="BuyerEditData.BuyerName" />
                     <h5>Enter Buyer Location</h5>
                     <input type="text" name="flocation" class="form-control"
-                           [(ngModel)]="BuyerEditData.BuyerLocation" />
+                        [(ngModel)]="BuyerEditData.BuyerLocation" />
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary cursorPointer"
-                            (click)="EditAddBuyerToServer()">
+                    <button type="button" class="btn btn-primary cursorPointer" (click)="EditAddBuyerToServer()">
                         Send
                     </button>
                     <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
@@ -381,20 +373,24 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Add/Edit Buyer</h4>
+                    <h4 *ngIf="!isOrderEdit" class="modal-title">Add Order</h4>
+                    <h4 *ngIf="isOrderEdit" class="modal-title">Order Number : {{NewOrder.Order_No}}</h4>
                     <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <h5>Enter Order Number</h5>
-                    <input type="text" name="ono" class="form-control" [(ngModel)]="NewOrder.Order_No" />
+                    <h5 *ngIf="!isOrderEdit">Enter Order Number</h5>
+                    <input *ngIf="!isOrderEdit" type="text" name="ono" class="form-control"
+                        [(ngModel)]="NewOrder.Order_No" />
                     <h5>Enter Style Number</h5>
                     <input type="text" name="styleNo" class="form-control" [(ngModel)]="NewOrder.Style_No" />
                     <h5>Enter Quantity</h5>
                     <input type="number" name="quantity" class="form-control" [(ngModel)]="NewOrder.Quantity" />
                     <h5>Enter Delivery date</h5>
-                    <input type="date" name="deliverydate" class="form-control" [ngModel]="NewOrder.Delivery | date:'yyyy-MM-dd'" (ngModelChange)="NewOrder.Delivery = $event" />
+                    <input type="date" name="deliverydate" class="form-control"
+                        [ngModel]="NewOrder.Delivery | date:'yyyy-MM-dd'"
+                        (ngModelChange)="NewOrder.Delivery = $event" />
                     <h5>Select Factory</h5>
                     <select class="form-control" [(ngModel)]="NewOrder.Factory_Id">
                         <option *ngFor="let fct of factories" value={{fct.Factory_Id}}>
@@ -417,14 +413,16 @@
                     </select>
                     <h5>Enter Price FOB</h5>
                     <input type="number" step="any" name="FOBPrice" class="form-control"
-                           [(ngModel)]="NewOrder.Price_FOB" />
+                        [(ngModel)]="NewOrder.Price_FOB" />
                     <h5>Enter Factory Price</h5>
                     <input type="number" step="any" name="FactoryPrice" class="form-control"
-                           [(ngModel)]="NewOrder.Factory_Price" />
+                        [(ngModel)]="NewOrder.Factory_Price" />
                     <h5>Total Value</h5>
-                    <textarea style="resize:none" rows="1" disabled class="form-control">
+                    <!-- <textarea style="resize:none" rows="1" disabled class="form-control">
                     {{(NewOrder.Price_FOB + NewOrder.Factory_Price) * NewOrder.Quantity}}
-                    </textarea>
+                    </textarea> -->
+                    <input type="number" step="any" name="totalvalue" class="form-control"
+                        value="{{(NewOrder.Price_FOB + NewOrder.Factory_Price) * NewOrder.Quantity}}" disabled />
                 </div>
 
                 <!-- Modal footer -->

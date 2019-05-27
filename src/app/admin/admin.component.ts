@@ -17,7 +17,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
-  providers:[DatePipe]
+  providers: [DatePipe]
 })
 export class AdminComponent implements OnInit {
 
@@ -42,6 +42,7 @@ export class AdminComponent implements OnInit {
     this.GetBuyers();
     this.GetFactory();
     this.GetShippingModes();
+    this.isOrderEdit = true;
   }
 
   public orders: OrderInfo[];
@@ -57,6 +58,7 @@ export class AdminComponent implements OnInit {
   public NewShippingMode: ShippingMode;
   public BuyerEditData: Buyer;
   public NewOrder: Order;
+  public isOrderEdit: boolean;
 
   GetOrders() {
     this._adminDataService.GetOrders().subscribe(
@@ -305,6 +307,7 @@ export class AdminComponent implements OnInit {
   }
 
   EditOrder(orderdata: OrderInfo) {
+    this.isOrderEdit = true;
     this.NewOrder.Order_No = orderdata.OrderNo;
     this.NewOrder.Style_No = orderdata.StyleNo;
     this.NewOrder.BuyerId = orderdata.BuyerId;
@@ -320,7 +323,12 @@ export class AdminComponent implements OnInit {
     this.NewOrder.Total_Value = orderdata.TotalValue;
   }
 
-  GetDateString(newdate : Date){
-    this.datePipe.transform(newdate,"yyyy-MM-dd");
+  GetDateString(newdate: Date) {
+    this.datePipe.transform(newdate, "yyyy-MM-dd");
+  }
+
+  AddOrder() {
+    this.NewOrder = new Order();
+    this.isOrderEdit = false;
   }
 }

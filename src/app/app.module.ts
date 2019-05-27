@@ -10,6 +10,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderdetailsComponent } from './orderdetails/orderdetails.component';
 import { AdminComponent } from './admin/admin.component';
+import { NgPipesModule } from 'ngx-pipes';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSortModule } from '@angular/material/sort'
+import { MatTableModule } from '@angular/material';
+import { MatIconModule } from "@angular/material/icon";
+import { MatPaginatorModule } from '@angular/material';
+
 //import * as $ from 'jquery';
 
 @NgModule({
@@ -25,7 +32,19 @@ import { AdminComponent } from './admin/admin.component';
     AppRoutingModule,
     HttpClientModule,
     NgxSpinnerModule,
-    FormsModule],
+    FormsModule,
+    NgPipesModule,
+    BrowserAnimationsModule,
+    MatSortModule,
+    MatTableModule,
+    MatIconModule,
+    MatPaginatorModule
+  ],
+  exports: [  
+    MatSortModule,
+    MatTableModule,
+    MatPaginatorModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
