@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AdminDataService } from '../services/admin-data.service';
 import { OrderInfo } from '../models/OrderInfo';
 import { Order } from '../models/Order';
@@ -7,6 +7,7 @@ import { Buyer } from '../models/Buyer';
 import { Factory } from '../models/Factory';
 import { ShippingMode } from '../models/ShippingMode';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-orderdetails',
@@ -16,7 +17,7 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 export class OrderdetailsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  @ViewChild('TABLE') table: ElementRef;
   constructor(private _adminDataService: AdminDataService, private spinner: NgxSpinnerService) { }
   public dataSource = new MatTableDataSource<OrderInfo>();
 
@@ -44,7 +45,7 @@ export class OrderdetailsComponent implements OnInit {
   public factories: Factory[];
   public shipppingmodes: ShippingMode[];
   public isOrderEdit: boolean;
-  public displayedColumns : string[] = ["OrderNo", "StyleNo", "Quantity",
+  public displayedColumns: string[] = ["OrderNo", "StyleNo", "Quantity",
     "Delivery", "BuyerName", "FactoryName", "PushraseOrderNo", "ShippingModeName", "PriceFOB",
     "FactoryPrice", "TotalValue", "ShipDate", "update"];
   public SelectedOrderBy: string;
@@ -143,5 +144,19 @@ export class OrderdetailsComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+
+  ExportTOExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, 'Data.xlsx');
+
   }
 }

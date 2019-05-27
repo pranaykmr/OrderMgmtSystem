@@ -15,7 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSortModule } from '@angular/material/sort'
 import { MatTableModule } from '@angular/material';
 import { MatIconModule } from "@angular/material/icon";
-import { MatPaginatorModule } from '@angular/material';
+import { MatPaginatorModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 //import * as $ from 'jquery';
 
@@ -38,12 +38,16 @@ import { MatPaginatorModule } from '@angular/material';
     MatSortModule,
     MatTableModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatFormFieldModule, 
+    MatInputModule 
   ],
-  exports: [  
+  exports: [
     MatSortModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatFormFieldModule, 
+    MatInputModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

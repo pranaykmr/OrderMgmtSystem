@@ -20,14 +20,18 @@ th.mat-header-cell {
     justify-content: center;
 }
 
-.cursorPointer{
+.cursorPointer {
     cursor: pointer;
 }
 
-.topMargin{
-    margin-top:4px;
+.topMargin {
+    margin-top: 4px;
 }
 
-.mat-header-cell{
-    font-size:medium;
+.mat-header-cell {
+    font-size: medium;
+}
+
+.alignRight {
+    float: right;
 }
