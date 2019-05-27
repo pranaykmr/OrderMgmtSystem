@@ -22,6 +22,7 @@ export class OrderdetailsComponent implements OnInit {
   public dataSource = new MatTableDataSource<OrderInfo>();
 
   ngOnInit() {
+    this.showActiveOrdersOnly = true;
     this.spinner.show();
     this.GetOrders();
     this.orders = new Array<OrderInfo>();
@@ -45,13 +46,15 @@ export class OrderdetailsComponent implements OnInit {
   public factories: Factory[];
   public shipppingmodes: ShippingMode[];
   public isOrderEdit: boolean;
+  public showActiveOrdersOnly: boolean;
   public displayedColumns: string[] = ["OrderNo", "StyleNo", "Quantity",
-    "Delivery", "BuyerName", "FactoryName", "PushraseOrderNo", "ShippingModeName", "PriceFOB",
-    "FactoryPrice", "TotalValue", "ShipDate", "update"];
+    "BuyerName", "FactoryName", "PushraseOrderNo", "ShippingModeName", "PriceFOB",
+    "FactoryPrice", "TotalValue", "Delivery", "ShipDate", "update"];
   public SelectedOrderBy: string;
 
   GetOrders() {
-    this._adminDataService.GetOrders().subscribe(
+    this.spinner.show();
+    this._adminDataService.GetOrders(this.showActiveOrdersOnly).subscribe(
       (data: OrderInfo[]) => {
         this.orders = data;
         this.dataSource.data = data as OrderInfo[];
@@ -157,6 +160,10 @@ export class OrderdetailsComponent implements OnInit {
 
     /* save to file */
     XLSX.writeFile(wb, 'Data.xlsx');
+  }
 
+   toggelActiveOrders() {
+    this.showActiveOrdersOnly = !this.showActiveOrdersOnly;
+    this.GetOrders();
   }
 }

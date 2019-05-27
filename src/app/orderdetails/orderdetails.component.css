@@ -35,3 +35,7 @@ th.mat-header-cell {
 .alignRight {
     float: right;
 }
+
+.padTop14{
+    padding-top:14px;
+}

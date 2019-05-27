@@ -61,7 +61,7 @@ export class AdminComponent implements OnInit {
   public isOrderEdit: boolean;
 
   GetOrders() {
-    this._adminDataService.GetOrders().subscribe(
+    this._adminDataService.GetOrders(false).subscribe(
       (data: OrderInfo[]) => {
         this.orders = data;
       },

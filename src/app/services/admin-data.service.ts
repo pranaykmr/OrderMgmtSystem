@@ -17,8 +17,8 @@ export class AdminDataService {
   apiUrl: string = 'http://localhost:28687/api';
   constructor(private _httpClient: HttpClient, private _securityService: SecurityService) { }
 
-  GetOrders(): Observable<OrderInfo[]> {
-    return this._httpClient.get<OrderInfo[]>(`${this.apiUrl}/OrderInfo/GetOrderInfo?token=` + this._securityService.GetUserToken());
+  GetOrders(showActiveOrdersOnly): Observable<OrderInfo[]> {
+    return this._httpClient.get<OrderInfo[]>(`${this.apiUrl}/OrderInfo/GetOrderInfo?token=` + this._securityService.GetUserToken() + '&getInactiveOrders=' + !showActiveOrdersOnly);
   }
 
   GetBuyers(): Observable<Buyer[]> {

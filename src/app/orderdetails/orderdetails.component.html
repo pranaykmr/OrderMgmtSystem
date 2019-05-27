@@ -59,9 +59,14 @@
           <mat-form-field fxFlex="40%">
             <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
           </mat-form-field>
+          <div class="alignRight padTop14">
+            Show Active Orders Only :  
+              <input type="checkbox" class="cursorPointer" [checked]="showActiveOrdersOnly"
+              (change)="toggelActiveOrders()" />
+          </div>
         </div>
         <div #TABLE>
-          <table class="table-striped" #table mat-table [dataSource]="dataSource" matSort>
+          <table class="table-striped mat-elevation-z8 " #table mat-table [dataSource]="dataSource" matSort  matSortActive="Delivery" matSortDirection="desc">
             <ng-container matColumnDef="OrderNo">
               <!-- <mat-header-cell *matHeaderCellDef>
               <span mat-sort-header> Order No </span>
@@ -80,11 +85,6 @@
             <ng-container matColumnDef="Quantity">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
               <td mat-cell *matCellDef="let element"> {{element.Quantity}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Delivery">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery </th>
-              <td mat-cell *matCellDef="let element"> {{element.Delivery | date: 'shortDate'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="BuyerName">
@@ -122,6 +122,11 @@
               <td mat-cell *matCellDef="let element"> {{element.TotalValue}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="Delivery">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery </th>
+              <td mat-cell *matCellDef="let element"> {{element.Delivery | date: 'shortDate'}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="ShipDate">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Ship Date </th>
               <td mat-cell *matCellDef="let element"> {{element.ShipDate | date: 'shortDate'}} </td>
@@ -136,10 +141,15 @@
               </td>
             </ng-container>
 
+            <ng-container matColumnDef="total">
+              <mat-cell class="right-align" *matCellDef="let total"> Total: {{calculation()}}</mat-cell>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
-          <mat-paginator [pageSize]="dataSource.data.length" [pageSizeOptions]="[5, 10, 25, 50, 75, 100, dataSource.data.length]" showFirstLastButtons>
+          <mat-paginator [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 25, 50, 75, 100, dataSource.data.length]" showFirstLastButtons>
           </mat-paginator>
         </div>
       </div>
