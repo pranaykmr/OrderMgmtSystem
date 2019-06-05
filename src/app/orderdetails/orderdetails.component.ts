@@ -8,6 +8,8 @@ import { Factory } from '../models/Factory';
 import { ShippingMode } from '../models/ShippingMode';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import * as XLSX from 'xlsx';
+import { ShippingService } from '../services/shipping.service';
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-orderdetails',
@@ -18,7 +20,7 @@ export class OrderdetailsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('TABLE') table: ElementRef;
-  constructor(private _adminDataService: AdminDataService, private spinner: NgxSpinnerService) { }
+  constructor(private _adminDataService: AdminDataService, private spinner: NgxSpinnerService, private _shippingService: ShippingService, private router: Router) { }
   public dataSource = new MatTableDataSource<OrderInfo>();
 
   ngOnInit() {
@@ -49,7 +51,7 @@ export class OrderdetailsComponent implements OnInit {
   public showActiveOrdersOnly: boolean;
   public displayedColumns: string[] = ["OrderNo", "StyleNo", "Quantity",
     "BuyerName", "FactoryName", "PushraseOrderNo", "ShippingModeName", "PriceFOB",
-    "FactoryPrice", "TotalValue", "Delivery", "ShipDate", "update","ship"];
+    "FactoryPrice", "TotalValue", "Delivery", "ShipDate", "update", "ship"];
   public SelectedOrderBy: string;
 
   GetOrders() {
@@ -162,8 +164,13 @@ export class OrderdetailsComponent implements OnInit {
     XLSX.writeFile(wb, 'Data.xlsx');
   }
 
-   toggelActiveOrders() {
+  toggelActiveOrders() {
     this.showActiveOrdersOnly = !this.showActiveOrdersOnly;
     this.GetOrders();
+  }
+
+  ShipOrder(data: OrderInfo) {
+    this._shippingService.SetCurrentOrderInfo(data);
+    this.router.navigate(['/shippingdetails']);
   }
 }
