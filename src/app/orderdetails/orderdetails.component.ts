@@ -170,6 +170,7 @@ export class OrderdetailsComponent implements OnInit {
   }
 
   ShipOrder(data: OrderInfo) {
+    this.spinner.show();
     this._shippingService.SetCurrentOrderInfo(data);
     this.router.navigate(['/shippingdetails']);
   }

@@ -9,6 +9,7 @@ export class ShippingDetails {
         this.ShippingModeId = "";
         this.Advised = null;
         this.Quantity = 0;
+        this.Consigned_To = null;
     }
     public Order_No: string;
     public PO_No: string;
@@ -19,4 +20,5 @@ export class ShippingDetails {
     public ShippingModeId: string;
     public Advised: Date;
     public Quantity: number;
+    public Consigned_To: string;
 }
