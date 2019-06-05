@@ -134,9 +134,15 @@
                     <h5>Enter Consignee</h5>
                     <input type="text" name="consignee" class="form-control" [(ngModel)]="newShippingDetails.Consigned_To" />
                 </div>
-                <div style="padding-top:20px;display: inline-block;">
-                    <button type="button" data-target="#addOrder" data-toggle="modal" class="btn btn-primary cursorPointer">AddOrders</button>
+                <div style="padding-top:20px;display: inline-block;float:right" class="col-xs-1">
+                    <button type="button" data-target="#addOrder" (click)="AddOrderClicked()" data-toggle="modal" class="btn btn-primary cursorPointer">AddOrders</button>
                 </div>
+                <div style="padding-top:20px;display: inline-block;float:left" clas="col-xs-10">
+                <div *ngFor="let o of newOrdersShipped" class="inlinechips selfclosechips fontbold">
+                  {{o.OrderNo}}
+                  <a (click)="RemoveSelectedOrder(o)" class="cursorPointer"><i class="material-icons">clear</i></a>
+                </div>
+              </div>
             </div>
         </div>
     </div>
@@ -171,9 +177,9 @@
             </div>
 
             <!-- Modal footer -->
-            <!-- <div class="modal-footer">
-                
-            </div> -->
+            <div *ngIf = "selectedOrderToAdd.OrderNo != null" class="modal-footer">
+                <button type="button" class="btn btn-primary cursorPointer"  data-dismiss="modal" (click)="AddOrder()">Add Order</button>
+            </div>
         </div>
     </div>
 </div>

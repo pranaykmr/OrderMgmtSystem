@@ -23,6 +23,8 @@ export class ShippingdetailsComponent implements OnInit {
   newShippingDetails = new ShippingDetails();
   searchText = "";
   selectedOrderToAdd = new OrderInfo();
+  newOrdersShipped = new Array<OrderInfo>();
+  ordersAll = new Array<OrderInfo>();
 
   ngOnInit() {
     this.CheckForOrder();
@@ -72,9 +74,10 @@ export class ShippingdetailsComponent implements OnInit {
 
   GetOrders() {
     this.spinner.show();
-    this._adminDataService.GetOrders(false).subscribe(
+    this._adminDataService.GetOrders(true).subscribe(
       (data: OrderInfo[]) => {
         this.orders = data;
+        this.ordersAll = data;
         this.spinner.hide();
       },
       (error: any) => {
@@ -86,6 +89,20 @@ export class ShippingdetailsComponent implements OnInit {
 
   SelectOrderToAdd(orderAdd: OrderInfo) {
     this.selectedOrderToAdd = orderAdd;
+  }
+
+  AddOrder() {
+    this.newOrdersShipped.push(this.selectedOrderToAdd);
+    //$('#addOrder').modal('hide');
+  }
+
+  RemoveSelectedOrder(orderdata: OrderInfo) {
+    this.newOrdersShipped = this.newOrdersShipped.filter(order => order.OrderNo !== orderdata.OrderNo);
+  }
+
+  AddOrderClicked(){
+    this.selectedOrderToAdd = new OrderInfo();
+    this.orders = this.ordersAll.filter(order => !this.newOrdersShipped.includes(order))
   }
 
 }

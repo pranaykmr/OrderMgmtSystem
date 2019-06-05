@@ -9,7 +9,7 @@ import { SecurityService } from '../services/security.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _securityService: SecurityService,  private spinner: NgxSpinnerService) {
+  constructor(private _securityService: SecurityService, private spinner: NgxSpinnerService) {
     this.userId = "";
     this.pwd = "";
   }
@@ -18,22 +18,23 @@ export class LoginComponent implements OnInit {
   private token: string;
 
   @Output()
-  onTokenValuePopulate : EventEmitter<string> = new EventEmitter<string>();
+  onTokenValuePopulate: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit() {
   }
-  
-  DoLogin() : void{
+
+  DoLogin(): void {
     this.spinner.show();
     this._securityService.DoLogin(this.userId, this.pwd).subscribe(
-      (data: string)=>{
+      (data: string) => {
         this.token = data;
         this.onTokenValuePopulate.emit(data);
         this.spinner.hide();
       },
-      (error: any)=>{
+      (error: any) => {
         console.log(error);
         this.spinner.hide();
+        setTimeout(function () { alert("Username or Password Incorrect"); }, 500);
       }
     );
   }
