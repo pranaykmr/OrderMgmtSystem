@@ -60,13 +60,14 @@
             <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
           </mat-form-field>
           <div class="alignRight padTop14">
-            Show Active Orders Only :  
-              <input type="checkbox" class="cursorPointer" [checked]="showActiveOrdersOnly"
+            Show Active Orders Only :
+            <input type="checkbox" class="cursorPointer" [checked]="showActiveOrdersOnly"
               (change)="toggelActiveOrders()" />
           </div>
         </div>
         <div #TABLE>
-          <table class="table-striped mat-elevation-z8 " #table mat-table [dataSource]="dataSource" matSort  matSortActive="Delivery" matSortDirection="desc">
+          <table class="table-striped mat-elevation-z8 " #table mat-table [dataSource]="dataSource" matSort
+            matSortActive="Delivery" matSortDirection="desc">
             <ng-container matColumnDef="OrderNo">
               <!-- <mat-header-cell *matHeaderCellDef>
               <span mat-sort-header> Order No </span>
@@ -133,7 +134,7 @@
             </ng-container>
 
             <ng-container matColumnDef="update">
-              <th mat-header-cell *matHeaderCellDef> Update </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Update </th>
               <td mat-cell *matCellDef="let element">
                 <a (click)="EditOrder(element)" data-target="#addEditOrder" data-toggle="modal" class="cursorPointer">
                   <i class="material-icons">mode_edit</i>
@@ -141,15 +142,20 @@
               </td>
             </ng-container>
 
-            <ng-container matColumnDef="total">
-              <mat-cell class="right-align" *matCellDef="let total"> Total: {{calculation()}}</mat-cell>
+            <ng-container matColumnDef="ship">
+              <th mat-header-cell *matHeaderCellDef> Ship </th>
+              <td mat-cell *matCellDef="let element">
+                <a *ngIf="element.ShipDate == null" (click)="ShipOrder(element)" data-target="" data-toggle="modal" class="cursorPointer">
+                  <i class="material-icons">directions_boat</i>
+                </a>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
-          <mat-paginator [pageSize]="5"
-            [pageSizeOptions]="[5, 10, 25, 50, 75, 100, dataSource.data.length]" showFirstLastButtons>
+          <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 75, 100, dataSource.data.length]"
+            showFirstLastButtons>
           </mat-paginator>
         </div>
       </div>

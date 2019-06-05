@@ -9,6 +9,7 @@ import { Factory } from '../models/Factory';
 import { Users } from '../models/Users';
 import { ShippingMode } from '../models/ShippingMode';
 import { OrderInfo } from '../models/OrderInfo';
+import { ShippedBy } from '../models/ShippedBy';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,10 @@ export class AdminDataService {
 
   GetShippingModes(): Observable<ShippingMode[]> {
     return this._httpClient.get<ShippingMode[]>(`${this.apiUrl}/ShippingModes`);
+  }
+
+  GetShippingProviders(): Observable<ShippedBy[]> {
+    return this._httpClient.get<ShippedBy[]>(`${this.apiUrl}/ShippedBy`);
   }
 
   DeleteUser(userId: string): Observable<Boolean> {
@@ -105,5 +110,20 @@ export class AdminDataService {
         headers.append('Content-Type','application/json');
         let options = { headers: headers };
         return this._httpClient.put<void>(`${this.apiUrl}/Orders/${newOrder.Order_No}`,newOrder);
+  }
+
+  EditShipper(shipper: ShippedBy): Observable<void> {
+    //return this._httpClient.get<Boolean>(`${this.apiUrl}/login/UpdatePassword?newPassword=`);
+    let headers = new HttpHeaders();
+        headers.append('Content-Type','application/json');
+        let options = { headers: headers };
+        return this._httpClient.put<void>(`${this.apiUrl}/ShippedBy/${shipper.ShipperId}`,shipper);
+  }
+
+  AddNewShipper(newshipper: ShippedBy): Observable<boolean> {
+    let headers = new HttpHeaders();
+        headers.append('Content-Type','application/json');
+        let options = { headers: headers };
+        return this._httpClient.post<boolean>(`${this.apiUrl}/ShippedBy`, newshipper, options);
   }
 }

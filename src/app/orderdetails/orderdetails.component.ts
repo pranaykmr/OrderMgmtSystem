@@ -49,7 +49,7 @@ export class OrderdetailsComponent implements OnInit {
   public showActiveOrdersOnly: boolean;
   public displayedColumns: string[] = ["OrderNo", "StyleNo", "Quantity",
     "BuyerName", "FactoryName", "PushraseOrderNo", "ShippingModeName", "PriceFOB",
-    "FactoryPrice", "TotalValue", "Delivery", "ShipDate", "update"];
+    "FactoryPrice", "TotalValue", "Delivery", "ShipDate", "update","ship"];
   public SelectedOrderBy: string;
 
   GetOrders() {

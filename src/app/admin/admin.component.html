@@ -133,7 +133,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-4">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title col-xs-10 topMargin">Shipping Modes</h3>
@@ -157,9 +157,9 @@
                                         <td>{{i+1}}</td>
                                         <td>{{mode.ShippingModeName}}</td>
                                         <!-- <td>
-                                            <a (click)="DeleteShippingMode(mode.ShippingMode_Id)"
-                                               class="cursorPointer"><i class="material-icons">delete</i></a>
-                                        </td> -->
+                                                <a (click)="DeleteShippingMode(mode.ShippingMode_Id)"
+                                                   class="cursorPointer"><i class="material-icons">delete</i></a>
+                                            </td> -->
                                     </tr>
                                 </tbody>
                             </table>
@@ -167,7 +167,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-4">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title col-xs-10 topMargin">Buyers</h3>
@@ -183,7 +183,7 @@
                                         <th>Sl.No.</th>
                                         <th>Buyer Name</th>
                                         <th>Location</th>
-                                        <th>Edit Info</th>
+                                        <th>Edit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -194,6 +194,42 @@
                                         <td>
                                             <a (click)="EditBuyer(byr)" data-target="#addEditBuyer" data-toggle="modal"
                                                 data-class="cursorPointer"><i class="material-icons">mode_edit</i></a>
+                                        </td>
+                                        <td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title col-xs-10 topMargin">Shipping Providers</h3>
+                        <a (click)="AddShipper()" data-target="#addEditShipper" data-toggle="modal"
+                            class="cursorPointer">
+                            <i style="color:white" class="material-icons">add_circle_outline</i>
+                        </a>
+                    </div>
+                    <div class="panel-body em20Div">
+                        <div class="list-group" *ngIf="shippedby.length > 0">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Sl.No.</th>
+                                        <th>Shipper Name</th>
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let sb of shippedby; let i=index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{sb.ShipperName}}</td>
+                                        <td>
+                                            <a (click)="EditShipper(sb)" data-target="#addEditShipper"
+                                                data-toggle="modal" data-class="cursorPointer"><i
+                                                    class="material-icons">mode_edit</i></a>
                                         </td>
                                         <td>
                                     </tr>
@@ -367,6 +403,36 @@
         </div>
     </div>
 
+    <div class="modal fade" id="addEditShipper">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add/Edit Shipping Provider</h4>
+                    <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h5>Enter Provider Name</h5>
+                    <input type="text" name="fanem" class="form-control" [(ngModel)]="addEditShippedBy.ShipperName" />
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary cursorPointer" (click)="EditAddShipperToServer()">
+                        Send
+                    </button>
+                    <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
+
+                    <!-- this button is hidden, used to close from typescript -->
+                    <!-- <button type="button" id="close-modal" data-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="addEditOrder">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -419,8 +485,8 @@
                         [(ngModel)]="NewOrder.Factory_Price" />
                     <h5>Total Value</h5>
                     <!-- <textarea style="resize:none" rows="1" disabled class="form-control">
-                    {{(NewOrder.Price_FOB + NewOrder.Factory_Price) * NewOrder.Quantity}}
-                    </textarea> -->
+                        {{(NewOrder.Price_FOB + NewOrder.Factory_Price) * NewOrder.Quantity}}
+                        </textarea> -->
                     <input type="number" step="any" name="totalvalue" class="form-control"
                         value="{{(NewOrder.Price_FOB + NewOrder.Factory_Price) * NewOrder.Quantity}}" disabled />
                 </div>

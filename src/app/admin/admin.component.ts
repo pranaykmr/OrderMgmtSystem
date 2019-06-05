@@ -10,6 +10,7 @@ import { SecurityService } from '../services/security.service';
 import { Guid } from "guid-typescript";
 import { OrderInfo } from '../models/OrderInfo';
 import { DatePipe } from '@angular/common';
+import { ShippedBy } from '../models/ShippedBy';
 //import * as $ from 'jquery';
 //import 'bootstrap';
 //declare var $ : any;
@@ -37,12 +38,15 @@ export class AdminComponent implements OnInit {
     this.NewShippingMode = new ShippingMode();
     this.BuyerEditData = new Buyer();
     this.NewOrder = new Order();
+    this.shippedby = new Array<ShippedBy>();
     this.GetUsers();
     this.GetOrders();
     this.GetBuyers();
     this.GetFactory();
     this.GetShippingModes();
+    this.GetShippingProviders();
     this.isOrderEdit = true;
+    this.addEditShippedBy = new ShippedBy();
   }
 
   public orders: OrderInfo[];
@@ -59,6 +63,8 @@ export class AdminComponent implements OnInit {
   public BuyerEditData: Buyer;
   public NewOrder: Order;
   public isOrderEdit: boolean;
+  public shippedby: ShippedBy[];
+  public addEditShippedBy: ShippedBy;
 
   GetOrders() {
     this._adminDataService.GetOrders(false).subscribe(
@@ -108,6 +114,17 @@ export class AdminComponent implements OnInit {
     this._adminDataService.GetShippingModes().subscribe(
       (data: ShippingMode[]) => {
         this.shipppingmodes = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
+  }
+
+  GetShippingProviders() {
+    this._adminDataService.GetShippingProviders().subscribe(
+      (data: ShippedBy[]) => {
+        this.shippedby = data;
       },
       (error: any) => {
         console.log(error);
@@ -306,6 +323,34 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  EditAddShipperToServer(){
+    if (this.addEditShippedBy.ShipperId != "") {
+      this._adminDataService.EditShipper(this.addEditShippedBy).subscribe((data: any) => {
+        this.addEditShippedBy = new ShippedBy();
+        this.GetShippingProviders();
+        $("#addEditShipper").modal('hide');
+      },
+        (error: any) => {
+          console.log(error);
+          this.spinner.hide();
+          $("#addEditShipper").modal('hide');
+        })
+    }
+    else {
+      this.addEditShippedBy.ShipperId = Guid.create().toString();
+      this._adminDataService.AddNewShipper(this.addEditShippedBy).subscribe((data: boolean) => {
+        this.addEditShippedBy = new ShippedBy();
+        this.GetShippingProviders();
+        $("#addEditShipper").modal('hide');
+      },
+        (error: any) => {
+          console.log(error);
+          this.spinner.hide();
+          $("#addEditShipper").modal('hide');
+        })
+    }
+  }
+
   EditOrder(orderdata: OrderInfo) {
     this.isOrderEdit = true;
     this.NewOrder.Order_No = orderdata.OrderNo;
@@ -331,4 +376,12 @@ export class AdminComponent implements OnInit {
     this.NewOrder = new Order();
     this.isOrderEdit = false;
   }
+
+  EditShipper(shippedby: ShippedBy) {
+    this.addEditShippedBy = shippedby;
+  }
+  AddShipper() {
+    this.addEditShippedBy = new ShippedBy();
+  }
+
 }

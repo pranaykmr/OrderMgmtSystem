@@ -16,6 +16,7 @@ import { MatSortModule } from '@angular/material/sort'
 import { MatTableModule } from '@angular/material';
 import { MatIconModule } from "@angular/material/icon";
 import { MatPaginatorModule, MatFormFieldModule, MatInputModule, MatGridListModule } from '@angular/material';
+import { ShippingdetailsComponent } from './shippingdetails/shippingdetails.component';
 
 //import * as $ from 'jquery';
 
@@ -25,7 +26,8 @@ import { MatPaginatorModule, MatFormFieldModule, MatInputModule, MatGridListModu
     LoginComponent,
     WorkspaceComponent,
     OrderdetailsComponent,
-    AdminComponent
+    AdminComponent,
+    ShippingdetailsComponent
   ],
   imports: [
     BrowserModule,

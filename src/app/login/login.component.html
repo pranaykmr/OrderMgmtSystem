@@ -7,12 +7,12 @@
       <div class="panel-body">
         <div class="form-group row">
           <div class="col-xs-12">
-            <label for="userId">User Id</label>
-            <input type="text" name="userId" id="userId" class="form-control" (keydown.enter)="DoLogin()"
+            <label for="userId">Username</label>
+            <input type="text" name="userId" id="userId" placeholder="Username" class="form-control" (keydown.enter)="DoLogin()"
               [(ngModel)]="userId" />
 
-            <label for="userPwd">User Password</label>
-            <input type="password" name="userPwd" id="userPwd" class="form-control" (keydown.enter)="DoLogin()"
+            <label for="userPwd">Password</label>
+            <input type="password" name="userPwd" id="userPwd" placeholder="Password" class="form-control" (keydown.enter)="DoLogin()"
               [(ngModel)]="pwd" />
 
 
