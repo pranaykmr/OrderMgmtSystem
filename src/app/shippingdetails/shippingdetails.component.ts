@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ShippingService } from '../services/shipping.service';
 import { OrderInfo } from '../models/OrderInfo';
@@ -7,6 +7,9 @@ import { ShippedBy } from '../models/ShippedBy';
 import { ShippingMode } from '../models/ShippingMode';
 import { ShippingDetails } from '../models/ShippingDetails';
 import { OrderShipping } from '../models/OrderShipping';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import * as XLSX from 'xlsx';
+import { ShippingOrderDetails } from '../models/ShippingOrderDetails';
 
 @Component({
   selector: 'app-shippingdetails',
@@ -14,8 +17,11 @@ import { OrderShipping } from '../models/OrderShipping';
   styleUrls: ['./shippingdetails.component.css']
 })
 export class ShippingdetailsComponent implements OnInit {
-
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('TABLE') table: ElementRef;
   constructor(private spinner: NgxSpinnerService, private _shippingService: ShippingService, private _adminDataService: AdminDataService) { }
+  public dataSource = new MatTableDataSource<ShippingDetails>();
   orderdetails = new OrderInfo();
   isAddOrder = false;
   shipppingmodes = new Array<ShippingMode>();
@@ -30,12 +36,22 @@ export class ShippingdetailsComponent implements OnInit {
   isOrderFullyShipped = true;
   orderQuantity = 0;
   orderWeight = 0;
+  shippingdetails = new Array<ShippingDetails>();
+  displayedColumns: string[] = ["Order_No", "PO_No", "Invoice_No",
+    "Shipping_Date", "Weight", "ShippedBy", "BuyerName", "FactoryName", "ShippingMode", "Advised",
+    "Consigned_To", "Quantity"];
 
   ngOnInit() {
     this.CheckForOrder();
     this.GetShippingModes();
     this.GetShippingProviders();
     this.GetOrders();
+    this.GetShippingDetails();
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   ngOnDestroy() {
@@ -122,7 +138,6 @@ export class ShippingdetailsComponent implements OnInit {
     orderToAdd.StyleNo = selectedOrderToAdd.StyleNo;
     orderToAdd.TotalValue = selectedOrderToAdd.TotalValue;
     orderToAdd.IsFullyShipped = isOrderFullyShipped;
-    orderToAdd.Weight = this.orderWeight;
     return orderToAdd;
   }
 
@@ -142,6 +157,7 @@ export class ShippingdetailsComponent implements OnInit {
     //this.spinner.show();
     this._shippingService.ShipOrders(this.newOrdersShipped, this.newShippingDetails).subscribe(
       (data: boolean) => {
+        this.GetShippingDetails();
         this.activeTab = "shippingdetails";
         this.isAddOrder = false;
         this.newShippingDetails = new ShippingDetails();
@@ -156,5 +172,34 @@ export class ShippingdetailsComponent implements OnInit {
       }
     )
   }
+
+  GetShippingDetails() {
+    this.spinner.show();
+    this._shippingService.GetShippingDetails().subscribe(
+      (data: ShippingOrderDetails[]) => {
+        this.shippingdetails = data;
+        this.dataSource.data = data as ShippingDetails[];
+        this.spinner.hide();
+      },
+      (error: any) => {
+        console.log(error);
+        this.spinner.hide();
+      }
+    )
+  }
+
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+
+  ExportTOExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, 'ShippingData.xlsx');
+  }
+
 
 }

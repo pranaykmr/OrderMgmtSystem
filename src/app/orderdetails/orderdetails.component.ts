@@ -161,7 +161,7 @@ export class OrderdetailsComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
     /* save to file */
-    XLSX.writeFile(wb, 'Data.xlsx');
+    XLSX.writeFile(wb, 'OrderData.xlsx');
   }
 
   toggelActiveOrders() {

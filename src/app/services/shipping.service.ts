@@ -4,6 +4,7 @@ import { ShippingDetails } from '../models/ShippingDetails';
 import { OrderShipping } from '../models/OrderShipping';
 import { Observable } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { ShippingOrderDetails } from '../models/ShippingOrderDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +29,8 @@ export class ShippingService {
     let options = { headers: headers };
     return this._httpClient.post<boolean>(`${this.apiUrl}/ShipOrders/SaveShippingInfo`, { "orderinfo": orders, "shippingdetails": shippingdetails }, options);
   }
+
+  GetShippingDetails() : Observable<ShippingOrderDetails[]>{
+    return this._httpClient.get<ShippingOrderDetails[]>(`${this.apiUrl}/ShippingandOrderDetails/GetShippingInfo`);
+}
 }

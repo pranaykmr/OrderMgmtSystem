@@ -50,3 +50,17 @@
 .textalignleft {
     text-align: left;
 }
+
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px;
+}
+
+:host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+}
+
+.mat-header-cell {
+    font-size: medium;
+}
