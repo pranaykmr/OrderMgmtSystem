@@ -47,10 +47,10 @@ export class ShippingdetailsComponent implements OnInit {
     this.GetShippingProviders();
     this.GetOrders();
     this.GetShippingDetails();
+    setTimeout(() => this.dataSource.paginator = this.paginator);
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
