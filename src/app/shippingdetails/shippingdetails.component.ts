@@ -139,20 +139,20 @@ export class ShippingdetailsComponent implements OnInit {
   }
 
   Ship() {
-    this.spinner.show();
+    //this.spinner.show();
     this._shippingService.ShipOrders(this.newOrdersShipped, this.newShippingDetails).subscribe(
       (data: boolean) => {
         this.activeTab = "shippingdetails";
         this.isAddOrder = false;
         this.newShippingDetails = new ShippingDetails();
         this.newOrdersShipped = new Array<OrderShipping>();
-        this.spinner.hide();
+        //this.spinner.hide();
       },
       (error: any) => {
         this.newShippingDetails = new ShippingDetails();
         this.newOrdersShipped = new Array<OrderShipping>();
         console.log(error);
-        this.spinner.hide();
+        //this.spinner.hide();
       }
     )
   }

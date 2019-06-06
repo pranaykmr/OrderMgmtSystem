@@ -3,7 +3,7 @@ export class ShippingDetails {
         this.Order_No = "";
         this.PO_No = "";
         this.Invoice_No = "";
-        this.Shipping_Date = null;
+        this.Shipping_Date = new Date();
         this.Weight = 0;
         this.ShippedById = "";
         this.ShippingModeId = "";
