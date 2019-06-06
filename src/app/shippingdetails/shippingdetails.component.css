@@ -14,7 +14,7 @@
     font-weight: bold !important
 }
 
-.inlinechips{
+.inlinechips {
     font-size: 87.5%;
     font-weight: 400;
     border: 1px solid #ccc;
@@ -32,10 +32,21 @@
     transition: color 0.3s ease;
 }
 
-.selfclosechips{
+.selfclosechips {
     padding-right: 30px;
 }
 
 .cursorPointer {
     cursor: pointer;
+}
+
+.tablerow {
+    float: none;
+    float: none;
+    display: inline-table;
+    vertical-align: top;
+}
+
+.textalignleft {
+    text-align: left;
 }

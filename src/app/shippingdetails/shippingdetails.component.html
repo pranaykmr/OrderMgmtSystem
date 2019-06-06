@@ -1,185 +1,239 @@
 <div class="container">
-    <div class="row">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title topMargin">Shipping Detail</h3>
-            </div>
-            <div *ngIf="!isAddOrder" class="panel-body em25Div">
-                <div #TABLE>
-                    <table class="table-striped mat-elevation-z8 " #table mat-table [dataSource]="dataSource" matSort
-                           matSortActive="Delivery" matSortDirection="desc">
-                        <ng-container matColumnDef="OrderNo">
-                            <!-- <mat-header-cell *matHeaderCellDef>
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title topMargin">Shipping Detail</h3>
+      </div>
+      <ul class="nav nav-tabs">
+        <li [ngClass]="{ 'active':activeTab==='shippingdetails'}"><a
+            (click)="isAddOrder = false;activeTab = 'shippingdetails';">Shipping Details</a></li>
+        <li [ngClass]="{ 'active':activeTab==='shiporder'}"><a (click)="isAddOrder = true;activeTab = 'shiporder';">Ship
+            Order</a></li>
+      </ul>
+      <div *ngIf="!isAddOrder" class="panel-body em25Div">
+        <div #TABLE>
+          <table class="table-striped mat-elevation-z8 " #table mat-table [dataSource]="dataSource" matSort
+            matSortActive="Delivery" matSortDirection="desc">
+            <ng-container matColumnDef="OrderNo">
+              <!-- <mat-header-cell *matHeaderCellDef>
                               <span mat-sort-header> Order No </span>
                               <input class="filter-input" matInput (keyup)="doFilter($event.target.value)"
                                 placeholder="Filter Order" />
                             </mat-header-cell> -->
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Order No </th>
-                            <td mat-cell *matCellDef="let element"> {{element.OrderNo}} </td>
-                        </ng-container>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Order No </th>
+              <td mat-cell *matCellDef="let element"> {{element.OrderNo}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="StyleNo">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Style No </th>
-                            <td mat-cell *matCellDef="let element"> {{element.StyleNo}} </td>
-                        </ng-container>
+            <ng-container matColumnDef="StyleNo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Style No </th>
+              <td mat-cell *matCellDef="let element"> {{element.StyleNo}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="Quantity">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-                            <td mat-cell *matCellDef="let element"> {{element.Quantity}} </td>
-                        </ng-container>
+            <ng-container matColumnDef="Quantity">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+              <td mat-cell *matCellDef="let element"> {{element.Quantity}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="BuyerName">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Buyer Name </th>
-                            <td mat-cell *matCellDef="let element"> {{element.BuyerName}} </td>
-                        </ng-container>
+            <ng-container matColumnDef="BuyerName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Buyer Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.BuyerName}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="FactoryName">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Factory Name </th>
-                            <td mat-cell *matCellDef="let element"> {{element.FactoryName}} </td>
-                        </ng-container>
+            <ng-container matColumnDef="FactoryName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Factory Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.FactoryName}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="PushraseOrderNo">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Pushrase Order No </th>
-                            <td mat-cell *matCellDef="let element"> {{element.PushraseOrderNo}} </td>
-                        </ng-container>
+            <ng-container matColumnDef="PushraseOrderNo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Pushrase Order No </th>
+              <td mat-cell *matCellDef="let element"> {{element.PushraseOrderNo}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="ShippingModeName">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Shipping Mode </th>
-                            <td mat-cell *matCellDef="let element"> {{element.ShippingModeName}} </td>
-                        </ng-container>
+            <ng-container matColumnDef="ShippingModeName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Shipping Mode </th>
+              <td mat-cell *matCellDef="let element"> {{element.ShippingModeName}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="PriceFOB">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price FOB </th>
-                            <td mat-cell *matCellDef="let element"> {{element.PriceFOB}} </td>
-                        </ng-container>
+            <ng-container matColumnDef="PriceFOB">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Price FOB </th>
+              <td mat-cell *matCellDef="let element"> {{element.PriceFOB}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="FactoryPrice">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Factory Price </th>
-                            <td mat-cell *matCellDef="let element"> {{element.FactoryPrice}} </td>
-                        </ng-container>
+            <ng-container matColumnDef="FactoryPrice">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Factory Price </th>
+              <td mat-cell *matCellDef="let element"> {{element.FactoryPrice}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="TotalValue">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Value </th>
-                            <td mat-cell *matCellDef="let element"> {{element.TotalValue}} </td>
-                        </ng-container>
+            <ng-container matColumnDef="TotalValue">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Value </th>
+              <td mat-cell *matCellDef="let element"> {{element.TotalValue}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="Delivery">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery </th>
-                            <td mat-cell *matCellDef="let element"> {{element.Delivery | date: 'shortDate'}} </td>
-                        </ng-container>
+            <ng-container matColumnDef="Delivery">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery </th>
+              <td mat-cell *matCellDef="let element"> {{element.Delivery | date: 'shortDate'}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="ShipDate">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ship Date </th>
-                            <td mat-cell *matCellDef="let element"> {{element.ShipDate | date: 'shortDate'}} </td>
-                        </ng-container>
+            <ng-container matColumnDef="ShipDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Ship Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.ShipDate | date: 'shortDate'}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="update">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Update </th>
-                            <td mat-cell *matCellDef="let element">
-                                <a (click)="EditOrder(element)" data-target="#addEditOrder" data-toggle="modal" class="cursorPointer">
-                                    <i class="material-icons">mode_edit</i>
-                                </a>
-                            </td>
-                        </ng-container>
+            <ng-container matColumnDef="update">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Update </th>
+              <td mat-cell *matCellDef="let element">
+                <a (click)="EditOrder(element)" data-target="#addEditOrder" data-toggle="modal" class="cursorPointer">
+                  <i class="material-icons">mode_edit</i>
+                </a>
+              </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="ship">
-                            <th mat-header-cell *matHeaderCellDef> Ship </th>
-                            <td mat-cell *matCellDef="let element">
-                                <a *ngIf="element.ShipDate == null" (click)="ShipOrder(element)" data-target="" data-toggle="modal" class="cursorPointer">
-                                    <i class="material-icons">directions_boat</i>
-                                </a>
-                            </td>
-                        </ng-container>
+            <ng-container matColumnDef="ship">
+              <th mat-header-cell *matHeaderCellDef> Ship </th>
+              <td mat-cell *matCellDef="let element">
+                <a *ngIf="element.ShipDate == null" (click)="ShipOrder(element)" data-target="" data-toggle="modal"
+                  class="cursorPointer">
+                  <i class="material-icons">directions_boat</i>
+                </a>
+              </td>
+            </ng-container>
 
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </table>
-                    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 75, 100, dataSource.data.length]"
-                                   showFirstLastButtons>
-                    </mat-paginator>
-                </div>
-            </div>
-            <div *ngIf="isAddOrder" class="panel-body">
-                <div class="col-xs-6">
-                    <h5>Enter Invoice Number</h5>
-                    <input type="text" name="ino" class="form-control" [(ngModel)]="newShippingDetails.Invoice_No" />
-                </div>
-                <div class="col-xs-6">
-                    <h5>Enter Shipping Date</h5>
-                    <input type="date" name="shipDate" class="form-control" [ngModel]="newShippingDetails.Shipping_Date | date:'yyyy-MM-dd'"
-                           (ngModelChange)="newShippingDetails.Shipping_Date = $event" />
-                </div>
-                <div class="col-xs-6">
-                    <h5>Select Shipped By</h5>
-                    <select class="form-control" [(ngModel)]="newShippingDetails.ShippedById">
-                        <option *ngFor="let sp of shippedby" value={{sp.ShipperId}}>
-                            {{sp.ShipperName}}
-                        </option>
-                    </select>
-                </div>
-                <div class="col-xs-6">
-                    <h5>Select Shipping Mode</h5>
-                    <select class="form-control" [(ngModel)]="newShippingDetails.ShippingModeId">
-                        <option *ngFor="let sm of shipppingmodes" value={{sm.ShippingMode_Id}}>
-                            {{sm.ShippingModeName}}
-                        </option>
-                    </select>
-                </div>
-                <div class="col-xs-6">
-                    <h5>Enter Advised date</h5>
-                    <input type="date" name="adviseDate" class="form-control" [ngModel]="newShippingDetails.Advised | date:'yyyy-MM-dd'"
-                           (ngModelChange)="newShippingDetails.Advised = $event" />
-                </div>
-                <div class="col-xs-6">
-                    <h5>Enter Consignee</h5>
-                    <input type="text" name="consignee" class="form-control" [(ngModel)]="newShippingDetails.Consigned_To" />
-                </div>
-                <div style="padding-top:20px;display: inline-block;float:right" class="col-xs-1">
-                    <button type="button" data-target="#addOrder" (click)="AddOrderClicked()" data-toggle="modal" class="btn btn-primary cursorPointer">AddOrders</button>
-                </div>
-                <div style="padding-top:20px;display: inline-block;float:left" clas="col-xs-10">
-                <div *ngFor="let o of newOrdersShipped" class="inlinechips selfclosechips fontbold">
-                  {{o.OrderNo}}
-                  <a (click)="RemoveSelectedOrder(o)" class="cursorPointer"><i class="material-icons">clear</i></a>
-                </div>
-              </div>
-            </div>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 75, 100, dataSource.data.length]"
+            showFirstLastButtons>
+          </mat-paginator>
         </div>
+      </div>
+      <div *ngIf="isAddOrder" class="panel-body">
+        <div class="col-xs-6">
+          <h5>Enter Invoice Number</h5>
+          <input type="text" name="ino" class="form-control" [(ngModel)]="newShippingDetails.Invoice_No" />
+        </div>
+        <div class="col-xs-6">
+          <h5>Enter Shipping Date</h5>
+          <input type="date" name="shipDate" class="form-control"
+            [ngModel]="newShippingDetails.Shipping_Date | date:'yyyy-MM-dd'"
+            (ngModelChange)="newShippingDetails.Shipping_Date = $event" />
+        </div>
+        <div class="col-xs-6">
+          <h5>Select Shipped By</h5>
+          <select class="form-control" [(ngModel)]="newShippingDetails.ShippedById">
+            <option *ngFor="let sp of shippedby" value={{sp.ShipperId}}>
+              {{sp.ShipperName}}
+            </option>
+          </select>
+        </div>
+        <div class="col-xs-6">
+          <h5>Select Shipping Mode</h5>
+          <select class="form-control" [(ngModel)]="newShippingDetails.ShippingModeId">
+            <option *ngFor="let sm of shipppingmodes" value={{sm.ShippingMode_Id}}>
+              {{sm.ShippingModeName}}
+            </option>
+          </select>
+        </div>
+        <div class="col-xs-6">
+          <h5>Enter Advised date</h5>
+          <input type="date" name="adviseDate" class="form-control"
+            [ngModel]="newShippingDetails.Advised | date:'yyyy-MM-dd'"
+            (ngModelChange)="newShippingDetails.Advised = $event" />
+        </div>
+        <div class="col-xs-6">
+          <h5>Enter Consignee</h5>
+          <input type="text" name="consignee" class="form-control" [(ngModel)]="newShippingDetails.Consigned_To" />
+        </div>
+        <div style="padding:20px 12px;float:right">
+          <button type="button" data-target="#addOrder" (click)="AddOrderClicked()" data-toggle="modal"
+            class="btn btn-primary cursorPointer">Add Orders</button>
+            <button type="button" (click)="Ship()" data-toggle="modal"
+            class="btn btn-danger cursorPointer" style="margin-left: 5px;">Ship</button>
+        </div>
+        <div style="padding-top:20px;float:left">
+          <div *ngFor="let o of newOrdersShipped" class="inlinechips selfclosechips fontbold">
+            <div class="col-xs-9" style="line-height: 2;">Order No : {{o.OrderNo}}</div>
+            <div class="col-xs-3"> <a (click)="RemoveSelectedOrder(o)" class="cursorPointer"><i
+                  class="material-icons">clear</i></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="modal fade" id="addOrder">
-    <div class="modal-dialog">
-        <div class="modal-content">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add Order To Invoice</h4>
-                <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
-            </div>
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Order To Invoice</h4>
+        <!-- <button type="button" class="close" (click)="hideModal()">&times;</button> -->
+      </div>
 
-            <!-- Modal body -->
-            <div *ngIf = "selectedOrderToAdd.OrderNo == null" class="modal-body">
-                <input [(ngModel)]="searchText" placeholder="filter">
-                <br />
-                <div class="list-group">
-                    <button *ngFor="let item of orders| filter : searchText" class="list-group-item fontbold" (click)="SelectOrderToAdd(item)">
-                        Order No. : {{item.OrderNo}}  <br />
-                        Quantity  : {{item.Quantity}}  <br />
-                        Style No. : {{item.StyleNo}}  <br />
-                    </button>
-                </div>
-            </div>
-            <div *ngIf = "selectedOrderToAdd.OrderNo != null" class="modal-body fontbold">
-                Order No. : {{selectedOrderToAdd.OrderNo}}  <br />
-                Quantity  : {{selectedOrderToAdd.Quantity}}  <br />
-                Style No. : {{selectedOrderToAdd.StyleNo}}  <br />
-            </div>
-
-            <!-- Modal footer -->
-            <div *ngIf = "selectedOrderToAdd.OrderNo != null" class="modal-footer">
-                <button type="button" class="btn btn-primary cursorPointer"  data-dismiss="modal" (click)="AddOrder()">Add Order</button>
-            </div>
+      <!-- Modal body -->
+      <div *ngIf="selectedOrderToAdd.OrderNo == null" class="modal-body">
+        <input [(ngModel)]="searchText" placeholder="filter">
+        <br />
+        <div class="list-group">
+          <button *ngFor="let item of orders| filter : searchText" class="list-group-item fontbold"
+            (click)="SelectOrderToAdd(item)">
+            Order No. : {{item.OrderNo}} <br />
+            Quantity : {{item.Quantity}} <br />
+            Style No. : {{item.StyleNo}} <br />
+          </button>
         </div>
+      </div>
+      <div *ngIf="selectedOrderToAdd.OrderNo != null"  class="modal-body fontbold tablerow">
+        <div >
+          <div class="col-xs-6 textalignleft">Order No. :</div>
+          <div class="col-xs-6 textalignleft"> {{selectedOrderToAdd.OrderNo}}</div>
+        </div>
+        <div >
+          <div class="col-xs-6 textalignleft">Quantity. :</div>
+          <div class="col-xs-6 textalignleft"> {{selectedOrderToAdd.Quantity}}</div>
+        </div>
+        <div >
+          <div class="col-xs-6 textalignleft">Style No. :</div>
+          <div class="col-xs-6 textalignleft"> {{selectedOrderToAdd.StyleNo}}</div>
+        </div>
+        <div >
+            <div class="col-xs-6 textalignleft">Weight :</div>
+            <div class="col-xs-6 textalignleft">
+                <input type="number" step="any" name="wght" class="form-control" [(ngModel)]="orderWeight" />
+              </div>
+          </div>
+        <div >
+          <div class="col-xs-6 textalignleft">Is Fully Shipped. :</div>
+          <div class="col-xs-6 textalignleft">
+            <input type="checkbox" [checked]="isOrderFullyShipped"
+              (change)="isOrderFullyShipped = !isOrderFullyShipped" />
+          </div>
+        </div>
+        <div *ngIf="!isOrderFullyShipped" >
+          <div class="col-xs-6 textalignleft">Enter Quantity :</div>
+          <div class="col-xs-6 textalignleft">
+            <input type="number" step="any" name="qty" class="form-control" [(ngModel)]="orderQuantity" />
+          </div>
+        </div>
+        <!-- <div class="col-xs-4">Order No. : {{selectedOrderToAdd.OrderNo}}</div>
+        <div class="col-xs-4">Quantity : {{selectedOrderToAdd.Quantity}}</div>
+        <div class="col-xs-4">Style No. : {{selectedOrderToAdd.StyleNo}}</div>
+        <div class="col-xs-2"><input type="checkbox" [checked]="isOrderFullyShipped" (change)="isOrderFullyShipped = !isOrderFullyShipped" /></div>
+        <div class="col-xs-4"><h5>Is Fully Shipped</h5></div>
+        <div *ngIf="!isOrderFullyShipped">
+          <div>Enter Quantity</div>
+          <input class="col-xs-4" type="text" name="qty" class="form-control" [(ngModel)]="orderQuantity" />
+        </div> -->
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button *ngIf="selectedOrderToAdd.OrderNo != null" type="button" class="btn btn-primary cursorPointer"
+          data-dismiss="modal" (click)="AddOrder()">Add Order</button>
+        <button type="button" class="btn btn-danger cursorPointer" data-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>

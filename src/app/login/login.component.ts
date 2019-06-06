@@ -10,8 +10,8 @@ import { SecurityService } from '../services/security.service';
 export class LoginComponent implements OnInit {
 
   constructor(private _securityService: SecurityService, private spinner: NgxSpinnerService) {
-    this.userId = "";
-    this.pwd = "";
+    this.userId = "admin";
+    this.pwd = "admin";
   }
   private userId: string;
   private pwd: string;
@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   onTokenValuePopulate: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit() {
+    this.DoLogin();
   }
 
   DoLogin(): void {
