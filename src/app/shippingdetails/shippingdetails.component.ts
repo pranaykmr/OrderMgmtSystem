@@ -162,6 +162,7 @@ export class ShippingdetailsComponent implements OnInit {
         this.isAddOrder = false;
         this.newShippingDetails = new ShippingDetails();
         this.newOrdersShipped = new Array<OrderShipping>();
+        setTimeout(() => this.dataSource.paginator = this.paginator);
         //this.spinner.hide();
       },
       (error: any) => {

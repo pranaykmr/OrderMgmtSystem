@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { WorkspaceComponent } from './workspace/workspace.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderdetailsComponent } from './orderdetails/orderdetails.component';
 import { AdminComponent } from './admin/admin.component';
@@ -17,7 +17,10 @@ import { MatTableModule } from '@angular/material';
 import { MatIconModule } from "@angular/material/icon";
 import { MatPaginatorModule, MatFormFieldModule, MatInputModule, MatGridListModule } from '@angular/material';
 import { ShippingdetailsComponent } from './shippingdetails/shippingdetails.component';
-import { FilterPipe }from './filter.pipe'
+import { FilterPipe } from './filter.pipe'
+import { AdminDataService } from './services/admin-data.service';
+import { ShippingService } from './services/shipping.service';
+import { SecurityService } from './services/security.service';
 
 //import * as $ from 'jquery';
 
@@ -55,7 +58,12 @@ import { FilterPipe }from './filter.pipe'
     MatInputModule,
     MatGridListModule
   ],
-  providers: [],
+  providers: [
+    NgxSpinnerService,
+    ShippingService,
+    AdminDataService,
+    SecurityService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
