@@ -12,7 +12,7 @@ import { ShippingOrderDetails } from '../models/ShippingOrderDetails';
 export class ShippingService {
   orderDetails = new OrderInfo();
   newShippingDetails = new ShippingDetails();
-  apiUrl: string = 'http://localhost:28687/api';
+  apiUrl: string = 'http://localhost/OrderManagementService/api';
   constructor(private _httpClient: HttpClient) { }
 
   SetCurrentOrderInfo(currentOrder: OrderInfo): void {

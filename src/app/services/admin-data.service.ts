@@ -15,7 +15,7 @@ import { ShippedBy } from '../models/ShippedBy';
   providedIn: 'root'
 })
 export class AdminDataService {
-  apiUrl: string = 'http://localhost:28687/api';
+  apiUrl: string = 'http://localhost/OrderManagementService/api';
   constructor(private _httpClient: HttpClient, private _securityService: SecurityService) { }
 
   GetOrders(showActiveOrdersOnly): Observable<OrderInfo[]> {

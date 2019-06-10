@@ -145,7 +145,8 @@
             <ng-container matColumnDef="ship">
               <th mat-header-cell *matHeaderCellDef> Ship </th>
               <td mat-cell *matCellDef="let element">
-                <a *ngIf="element.ShipDate == null" (click)="ShipOrder(element)" data-target="" data-toggle="modal" class="cursorPointer">
+                <a *ngIf="element.ShipDate == null" (click)="ShipOrder(element)" data-target="" data-toggle="modal"
+                  class="cursorPointer">
                   <i class="material-icons">directions_boat</i>
                 </a>
               </td>
@@ -176,46 +177,71 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          <h5 *ngIf="!isOrderEdit">Enter Order Number</h5>
-          <input *ngIf="!isOrderEdit" type="text" name="ono" class="form-control" [(ngModel)]="NewOrder.Order_No" />
-          <h5>Enter Style Number</h5>
-          <input type="text" name="styleNo" class="form-control" [(ngModel)]="NewOrder.Style_No" />
-          <h5>Enter Quantity</h5>
-          <input type="number" name="quantity" class="form-control" [(ngModel)]="NewOrder.Quantity" />
-          <h5>Enter Delivery date</h5>
-          <input type="date" name="deliverydate" class="form-control" [ngModel]="NewOrder.Delivery | date:'yyyy-MM-dd'"
-            (ngModelChange)="NewOrder.Delivery = $event" />
-          <h5>Select Factory</h5>
-          <select class="form-control" [(ngModel)]="NewOrder.Factory_Id">
-            <option *ngFor="let fct of factories" value={{fct.Factory_Id}}>
-              {{fct.Name}}
-            </option>
-          </select>
-          <h5>Enter PO Number</h5>
-          <input type="text" name="PONumber" class="form-control" [(ngModel)]="NewOrder.Purchase_Order_No" />
-          <h5>Select Shipping Mode</h5>
-          <select class="form-control" [(ngModel)]="NewOrder.ShippingMode_Id">
-            <option *ngFor="let sm of shipppingmodes" value={{sm.ShippingMode_Id}}>
-              {{sm.ShippingModeName}}
-            </option>
-          </select>
-          <h5>Select Buyer</h5>
-          <select class="form-control" [(ngModel)]="NewOrder.BuyerId">
-            <option *ngFor="let b of buyers" value={{b.BuyerId}}>
-              {{b.BuyerName}}
-            </option>
-          </select>
-          <h5>Enter Price FOB</h5>
-          <input type="number" step="any" name="FOBPrice" class="form-control" [(ngModel)]="NewOrder.Price_FOB" />
-          <h5>Enter Factory Price</h5>
-          <input type="number" step="any" name="FactoryPrice" class="form-control"
-            [(ngModel)]="NewOrder.Factory_Price" />
-          <h5>Total Value</h5>
-          <!-- <textarea style="resize:none" rows="1" disabled class="form-control">
-                {{(NewOrder.Price_FOB + NewOrder.Factory_Price) * NewOrder.Quantity}}
-          </textarea> -->
-          <input type="number" step="any" name="totalvalue" class="form-control"
-            value="{{(NewOrder.Price_FOB + NewOrder.Factory_Price) * NewOrder.Quantity}}" disabled />
+          <div class=tablerow>
+            <div class="col-xs-12" *ngIf="!isOrderEdit">
+              <h5 >Enter Order Number</h5>
+              <input type="text" name="ono" class="form-control" [(ngModel)]="NewOrder.Order_No" />
+            </div>
+            <div class="col-xs-6">
+              <h5>Enter Style Number</h5>
+              <input type="text" name="styleNo" class="form-control" [(ngModel)]="NewOrder.Style_No" />
+            </div>
+            <div class="col-xs-6">
+              <h5>Enter Quantity</h5>
+              <input type="number" name="quantity" class="form-control" [(ngModel)]="NewOrder.Quantity" />
+            </div>
+            <div class="col-xs-6">
+              <h5>Enter Delivery date</h5>
+              <input type="date" name="deliverydate" class="form-control"
+                [ngModel]="NewOrder.Delivery | date:'yyyy-MM-dd'" (ngModelChange)="NewOrder.Delivery = $event" />
+            </div>
+            <div class="col-xs-6">
+              <h5>Select Factory</h5>
+              <select class="form-control" [(ngModel)]="NewOrder.Factory_Id">
+                <option *ngFor="let fct of factories" value={{fct.Factory_Id}}>
+                  {{fct.Name}}
+                </option>
+              </select>
+            </div>
+            <div class="col-xs-6">
+              <h5>Enter PO Number</h5>
+              <input type="text" name="PONumber" class="form-control" [(ngModel)]="NewOrder.Purchase_Order_No" />
+            </div>
+            <div class="col-xs-6">
+              <h5>Select Shipping Mode</h5>
+              <select class="form-control" [(ngModel)]="NewOrder.ShippingMode_Id">
+                <option *ngFor="let sm of shipppingmodes" value={{sm.ShippingMode_Id}}>
+                  {{sm.ShippingModeName}}
+                </option>
+              </select>
+            </div>
+            <div class="col-xs-6">
+              <h5>Select Buyer</h5>
+              <select class="form-control" [(ngModel)]="NewOrder.BuyerId">
+                <option *ngFor="let b of buyers" value={{b.BuyerId}}>
+                  {{b.BuyerName}}
+                </option>
+              </select>
+            </div>
+            <div class="col-xs-6">
+              <h5>Enter Price FOB</h5>
+              <input type="number" step="any" name="FOBPrice" class="form-control" [(ngModel)]="NewOrder.Price_FOB" />
+            </div>
+            <div class="col-xs-6">
+              <h5>Enter Factory Price</h5>
+              <input type="number" step="any" name="FactoryPrice" class="form-control"
+                [(ngModel)]="NewOrder.Factory_Price" />
+            </div>
+            <div class="col-xs-6">
+              <h5>Total Value</h5>
+
+              <!-- <textarea style="resize:none" rows="1" disabled class="form-control">
+                    {{(NewOrder.Price_FOB + NewOrder.Factory_Price) * NewOrder.Quantity}}
+              </textarea> -->
+              <input type="number" step="any" name="totalvalue" class="form-control"
+                value="{{(NewOrder.Price_FOB + NewOrder.Factory_Price) * NewOrder.Quantity}}" disabled />
+            </div>
+          </div>
         </div>
 
         <!-- Modal footer -->

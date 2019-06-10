@@ -47,7 +47,7 @@ export class ShippingdetailsComponent implements OnInit {
     this.GetShippingProviders();
     this.GetOrders();
     this.GetShippingDetails();
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    this.intiateMaterialProperties();
   }
 
   ngAfterViewInit(): void {
@@ -162,7 +162,7 @@ export class ShippingdetailsComponent implements OnInit {
         this.isAddOrder = false;
         this.newShippingDetails = new ShippingDetails();
         this.newOrdersShipped = new Array<OrderShipping>();
-        setTimeout(() => this.dataSource.paginator = this.paginator);
+        //this.intiateMaterialProperties();
         //this.spinner.hide();
       },
       (error: any) => {
@@ -181,6 +181,7 @@ export class ShippingdetailsComponent implements OnInit {
         this.shippingdetails = data;
         this.dataSource.data = data as ShippingDetails[];
         this.spinner.hide();
+        this.intiateMaterialProperties();
       },
       (error: any) => {
         console.log(error);
@@ -202,5 +203,8 @@ export class ShippingdetailsComponent implements OnInit {
     XLSX.writeFile(wb, 'ShippingData.xlsx');
   }
 
-
+  intiateMaterialProperties() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 }

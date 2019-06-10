@@ -39,3 +39,10 @@ th.mat-header-cell {
 .padTop14{
     padding-top:14px;
 }
+
+.tablerow {
+    float: none;
+    float: none;
+    display: inline-table;
+    vertical-align: top;
+}

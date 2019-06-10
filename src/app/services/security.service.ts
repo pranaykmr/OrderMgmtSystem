@@ -9,8 +9,8 @@ import 'rxjs/add/operator/map';
 export class SecurityService {
   userToken = '';
   userId = '';
-  apiUrl: string = 'http://localhost:28687/api/';
-  //apiUrl : string = 'http://localhost:9349/api';
+  apiUrl: string = 'http://localhost/OrderManagementService/api/';
+  //apiUrl : string = 'http://localhost:28687/api';
   constructor(private _httpClient: HttpClient) { }
 
   DoLogin(userId: string, pwd: string): Observable<string> {

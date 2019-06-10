@@ -6,7 +6,7 @@
       </div>
       <ul class="nav nav-tabs">
         <li [ngClass]="{ 'active':activeTab==='shippingdetails'}">
-          <a (click)="isAddOrder = false;activeTab = 'shippingdetails';">Shipping Details</a>
+          <a (click)="isAddOrder = false;activeTab = 'shippingdetails';GetShippingDetails();">Shipping Details</a>
         </li>
         <li [ngClass]="{ 'active':activeTab==='shiporder'}">
           <a (click)="isAddOrder = true;activeTab = 'shiporder';">
